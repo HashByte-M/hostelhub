@@ -1,0 +1,2622 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HostelHub — RGIPT Student Portal</title>
+<meta name="description" content="RGIPT HostelHub — Official Hostel Management Portal, Rajiv Gandhi Institute of Petroleum Technology, Jais, Amethi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════
+   CLAYMORPHISM DESIGN SYSTEM — RGIPT HostelHub
+   Nordic Academic × EU University × Clay UI
+   ═══════════════════════════════════════════════ */
+:root {
+  /* Primary Palette */
+  --primary:       #3B82F6;
+  --primary-dark:  #2563EB;
+  --primary-light: #EFF6FF;
+  --primary-glow:  rgba(59,130,246,0.25);
+
+  /* Accent */
+  --accent:        #6366F1;
+  --accent-light:  #EEF2FF;
+
+  /* Semantic */
+  --success:       #16A34A;
+  --success-light: #DCFCE7;
+  --warning:       #D97706;
+  --warning-light: #FEF3C7;
+  --danger:        #DC2626;
+  --danger-light:  #FEE2E2;
+
+  /* Surface */
+  --surface:       #FFFFFF;
+  --surface-2:     #F8FAFF;
+  --surface-3:     #F1F5FE;
+  --border:        rgba(99,102,241,0.12);
+  --border-strong: rgba(59,130,246,0.25);
+
+  /* Text */
+  --text:          #1C398E;
+  --text-body:     #374151;
+  --text-muted:    #6B7280;
+  --text-faint:    #9CA3AF;
+
+  /* Claymorphism Shadows */
+  --clay-sm:   4px 4px 10px rgba(99,102,241,0.12), -2px -2px 6px rgba(255,255,255,0.9), 0 1px 3px rgba(0,0,0,0.06);
+  --clay-md:   6px 6px 16px rgba(99,102,241,0.15), -3px -3px 10px rgba(255,255,255,0.95), 0 2px 6px rgba(0,0,0,0.08);
+  --clay-lg:   8px 8px 24px rgba(99,102,241,0.18), -4px -4px 14px rgba(255,255,255,1), 0 4px 12px rgba(0,0,0,0.1);
+  --clay-btn:  4px 4px 12px rgba(59,130,246,0.35), -2px -2px 6px rgba(255,255,255,0.5), inset 0 1px 0 rgba(255,255,255,0.3);
+
+  /* Spacing */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+  --space-4: 16px; --space-6: 24px; --space-8: 32px;
+
+  /* Radius — claymorphism uses generous curves */
+  --r-sm: 10px; --r-md: 16px; --r-lg: 20px; --r-xl: 28px; --r-full: 9999px;
+
+  /* Sidebar */
+  --sidebar-w: 240px;
+  --header-h: 60px;
+}
+
+.dark {
+  --primary:       #60A5FA;
+  --primary-dark:  #3B82F6;
+  --primary-light: #1E3A5F22;
+  --surface:       #1E2A45;
+  --surface-2:     #162035;
+  --surface-3:     #111827;
+  --border:        rgba(96,165,250,0.15);
+  --text:          #93C5FD;
+  --text-body:     #E2E8F0;
+  --text-muted:    #94A3B8;
+  --clay-sm:   4px 4px 12px rgba(0,0,0,0.35), -2px -2px 6px rgba(255,255,255,0.04);
+  --clay-md:   6px 6px 18px rgba(0,0,0,0.4),  -3px -3px 10px rgba(255,255,255,0.04);
+  --clay-lg:   8px 8px 24px rgba(0,0,0,0.45), -4px -4px 14px rgba(255,255,255,0.03);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 14px; }
+
+body {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  background: var(--surface-2);
+  color: var(--text-body);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Background Mesh ── */
+.app-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(99,102,241,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(59,130,246,0.07) 0%, transparent 55%),
+    linear-gradient(160deg, #F0F4FF 0%, #F8FAFF 50%, #EEF2FF 100%);
+  min-height: 100vh;
+}
+.dark .app-bg {
+  background:
+    radial-gradient(ellipse 80% 50% at 20% -10%, rgba(37,99,235,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 110%, rgba(99,102,241,0.08) 0%, transparent 55%),
+    linear-gradient(160deg, #0F172A 0%, #111827 50%, #0D1B36 100%);
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: var(--r-full); }
+::-webkit-scrollbar-thumb:hover { background: rgba(59,130,246,0.5); }
+
+/* ═══════════════════════════════════════════════
+   CLAYMORPHISM CARDS
+   ═══════════════════════════════════════════════ */
+.clay {
+  background: var(--surface);
+  border-radius: var(--r-lg);
+  box-shadow: var(--clay-md);
+  border: 1px solid var(--border);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.clay:hover:not(.clay--static) {
+  box-shadow: var(--clay-lg);
+  transform: translateY(-2px);
+}
+.clay--sm { border-radius: var(--r-md); box-shadow: var(--clay-sm); }
+.clay--lg { border-radius: var(--r-xl); box-shadow: var(--clay-lg); }
+.clay--static { transition: none; }
+.clay--static:hover { transform: none; box-shadow: var(--clay-md); }
+
+/* ═══════════════════════════════════════════════
+   BUTTONS — Claymorphism Style
+   ═══════════════════════════════════════════════ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 6px; font-family: 'Montserrat', sans-serif; font-weight: 600;
+  font-size: 0.8125rem; border: none; cursor: pointer;
+  border-radius: var(--r-md); padding: 10px 20px;
+  transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1); position: relative;
+  white-space: nowrap;
+}
+.btn:active { transform: scale(0.97) !important; }
+.btn:disabled { opacity: 0.55; cursor: not-allowed; transform: none !important; }
+
+.btn--primary {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: white;
+  box-shadow: 4px 4px 12px rgba(37,99,235,0.35), -1px -1px 4px rgba(255,255,255,0.2), inset 0 1px 0 rgba(255,255,255,0.25);
+}
+.btn--primary:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8);
+  box-shadow: 6px 6px 18px rgba(37,99,235,0.45), -2px -2px 6px rgba(255,255,255,0.2);
+  transform: translateY(-2px);
+}
+
+.btn--accent {
+  background: linear-gradient(135deg, #6366F1, #4F46E5);
+  color: white;
+  box-shadow: 4px 4px 12px rgba(79,70,229,0.35), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.btn--accent:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 6px 6px 18px rgba(79,70,229,0.45); }
+
+.btn--ghost {
+  background: var(--surface);
+  color: var(--primary-dark);
+  border: 1.5px solid var(--border-strong);
+  box-shadow: var(--clay-sm);
+}
+.btn--ghost:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); transform: translateY(-1px); }
+
+.btn--danger {
+  background: linear-gradient(135deg, #EF4444, #DC2626);
+  color: white;
+  box-shadow: 4px 4px 12px rgba(220,38,38,0.3);
+}
+.btn--success {
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+  color: white;
+  box-shadow: 4px 4px 12px rgba(22,163,74,0.3);
+}
+.btn--sm { padding: 6px 14px; font-size: 0.75rem; border-radius: var(--r-sm); }
+.btn--lg { padding: 14px 28px; font-size: 0.9375rem; }
+.btn--full { width: 100%; }
+
+/* ═══════════════════════════════════════════════
+   INPUTS — Clay Style
+   ═══════════════════════════════════════════════ */
+.field {
+  width: 100%; padding: 10px 14px;
+  font-family: 'Montserrat', sans-serif; font-size: 0.8125rem; font-weight: 500;
+  color: var(--text-body);
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  box-shadow: inset 2px 2px 5px rgba(99,102,241,0.07), inset -1px -1px 3px rgba(255,255,255,0.8);
+  transition: all 0.18s ease; outline: none;
+}
+.field::placeholder { color: var(--text-faint); font-weight: 400; }
+.field:focus {
+  border-color: var(--primary);
+  box-shadow: inset 2px 2px 5px rgba(59,130,246,0.08), 0 0 0 3px rgba(59,130,246,0.12);
+}
+.dark .field {
+  background: var(--surface-2); color: var(--text-body);
+  box-shadow: inset 2px 2px 5px rgba(0,0,0,0.2);
+}
+.dark .field:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(96,165,250,0.15); }
+
+.field-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%236366F1' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 10px center; background-size: 16px;
+  padding-right: 36px;
+}
+
+.field-label {
+  display: block; font-size: 0.75rem; font-weight: 700;
+  color: var(--text-muted); margin-bottom: 5px; letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+/* ═══════════════════════════════════════════════
+   BADGES & TAGS
+   ═══════════════════════════════════════════════ */
+.badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 3px 9px;
+  border-radius: var(--r-full); white-space: nowrap;
+}
+.badge--blue    { background: #EFF6FF; color: #1D4ED8; border: 1px solid #BFDBFE; }
+.badge--indigo  { background: #EEF2FF; color: #4338CA; border: 1px solid #C7D2FE; }
+.badge--green   { background: #F0FDF4; color: #166534; border: 1px solid #BBF7D0; }
+.badge--yellow  { background: #FFFBEB; color: #92400E; border: 1px solid #FDE68A; }
+.badge--red     { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; }
+.badge--purple  { background: #F5F3FF; color: #5B21B6; border: 1px solid #DDD6FE; }
+.badge--gray    { background: #F9FAFB; color: #374151; border: 1px solid #E5E7EB; }
+.badge--pink    { background: #FDF2F8; color: #9D174D; border: 1px solid #FBCFE8; }
+.badge--teal    { background: #F0FDFA; color: #115E59; border: 1px solid #99F6E4; }
+
+.dark .badge--blue   { background: #1e3a5f; color: #93C5FD; border-color: #2563eb44; }
+.dark .badge--green  { background: #14532d; color: #86EFAC; border-color: #16a34a44; }
+.dark .badge--red    { background: #450a0a; color: #FCA5A5; border-color: #dc262644; }
+.dark .badge--yellow { background: #451a03; color: #FCD34D; border-color: #d9770644; }
+.dark .badge--purple { background: #2e1065; color: #C4B5FD; border-color: #7c3aed44; }
+.dark .badge--gray   { background: #1F2937; color: #9CA3AF; border-color: #37415144; }
+
+/* ═══════════════════════════════════════════════
+   TABS
+   ═══════════════════════════════════════════════ */
+.tab-bar { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab {
+  padding: 7px 16px; border-radius: var(--r-md); font-size: 0.78rem; font-weight: 600;
+  border: 1.5px solid var(--border); background: var(--surface); color: var(--text-muted);
+  cursor: pointer; transition: all 0.18s ease; white-space: nowrap;
+  box-shadow: var(--clay-sm);
+}
+.tab:hover { border-color: var(--primary); color: var(--primary-dark); }
+.tab.active {
+  background: linear-gradient(135deg, #3B82F6, #2563EB);
+  color: white; border-color: transparent;
+  box-shadow: 4px 4px 12px rgba(37,99,235,0.3);
+}
+
+/* ═══════════════════════════════════════════════
+   SPINNER
+   ═══════════════════════════════════════════════ */
+.spinner {
+  width: 15px; height: 15px;
+  border: 2.5px solid rgba(255,255,255,0.3);
+  border-top-color: white; border-radius: 50%;
+  animation: spin 0.7s linear infinite; display: inline-block;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ═══════════════════════════════════════════════
+   AUTH SCREEN
+   ═══════════════════════════════════════════════ */
+.auth-bg {
+  background:
+    radial-gradient(circle at 15% 50%, rgba(99,102,241,0.12) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, rgba(59,130,246,0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #EEF2FF 0%, #EFF6FF 50%, #F0F9FF 100%);
+}
+.dark .auth-bg {
+  background: linear-gradient(135deg, #0F172A 0%, #111827 100%);
+}
+.auth-card { display: none; }
+.auth-card.active { display: block; animation: slideUp 0.28s cubic-bezier(0.34,1.56,0.64,1); }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─── Auth orbs ─── */
+.orb { position: absolute; border-radius: 50%; filter: blur(80px); pointer-events: none; }
+.orb-1 { width: 320px; height: 320px; background: radial-gradient(circle, #818CF8, #6366F1); opacity: 0.15; top: -60px; left: -80px; animation: orbf 9s ease-in-out infinite alternate; }
+.orb-2 { width: 240px; height: 240px; background: radial-gradient(circle, #60A5FA, #3B82F6); opacity: 0.12; bottom: -40px; right: -60px; animation: orbf 11s ease-in-out infinite alternate-reverse; }
+@keyframes orbf { 0% { transform: translate(0,0); } 100% { transform: translate(20px,-20px); } }
+
+/* ═══════════════════════════════════════════════
+   SIDEBAR
+   ═══════════════════════════════════════════════ */
+#sidebar {
+  width: var(--sidebar-w); height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  box-shadow: 4px 0 20px rgba(99,102,241,0.08);
+  display: flex; flex-direction: column; flex-shrink: 0;
+  position: fixed; left: 0; top: 0; z-index: 100;
+}
+.dark #sidebar { background: var(--surface); }
+
+.nav-group-title {
+  font-size: 0.6rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-faint); padding: 12px 14px 4px;
+}
+
+.nav-link {
+  display: flex; align-items: center; gap: 9px;
+  padding: 8px 12px; margin: 1px 8px;
+  border-radius: var(--r-md); font-size: 0.8125rem; font-weight: 600;
+  color: var(--text-muted); cursor: pointer; text-decoration: none;
+  transition: all 0.18s ease; border: 1.5px solid transparent;
+}
+.nav-link:hover { background: var(--primary-light); color: var(--primary-dark); border-color: rgba(59,130,246,0.12); }
+.nav-link.active {
+  background: linear-gradient(135deg, rgba(59,130,246,0.12), rgba(99,102,241,0.08));
+  color: var(--primary-dark); border-color: rgba(59,130,246,0.2);
+  box-shadow: var(--clay-sm);
+}
+.dark .nav-link:hover { background: rgba(96,165,250,0.08); color: var(--primary); }
+.dark .nav-link.active { background: rgba(96,165,250,0.1); color: var(--primary); }
+
+.nav-icon { font-size: 1rem; width: 20px; text-align: center; flex-shrink: 0; }
+
+/* ═══════════════════════════════════════════════
+   VIEWS
+   ═══════════════════════════════════════════════ */
+.view { display: none; }
+.view.active { display: block; animation: viewIn 0.22s cubic-bezier(0.4,0,0.2,1); }
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.subtab-content { display: none; }
+.subtab-content.active { display: block; animation: viewIn 0.2s ease; }
+.mgmt-tab-content { display: none; }
+.mgmt-tab-content.active { display: block; animation: viewIn 0.2s ease; }
+.admin-tab-content { display: none; }
+.admin-tab-content.active { display: block; animation: viewIn 0.2s ease; }
+
+/* ═══════════════════════════════════════════════
+   ROLE VISIBILITY
+   ═══════════════════════════════════════════════ */
+.role-student,.role-hostel_rep,.role-mess_secretary,.role-maint_secretary,
+.role-warden,.role-head_warden,.role-super_admin { display: none; }
+
+body[data-role="student"]          .role-student { display: block; }
+body[data-role="hostel_rep"]       .role-hostel_rep,
+body[data-role="hostel_rep"]       .role-student { display: block; }
+body[data-role="mess_secretary"]   .role-mess_secretary,
+body[data-role="mess_secretary"]   .role-student,
+body[data-role="mess_secretary"]   .role-hostel_rep { display: block; }
+body[data-role="maint_secretary"]  .role-maint_secretary,
+body[data-role="maint_secretary"]  .role-student { display: block; }
+body[data-role="warden"]           .role-warden,
+body[data-role="warden"]           .role-maint_secretary,
+body[data-role="warden"]           .role-hostel_rep,
+body[data-role="warden"]           .role-mess_secretary,
+body[data-role="warden"]           .role-student { display: block; }
+body[data-role="head_warden"]      .role-head_warden,
+body[data-role="head_warden"]      .role-warden,
+body[data-role="head_warden"]      .role-maint_secretary,
+body[data-role="head_warden"]      .role-hostel_rep,
+body[data-role="head_warden"]      .role-mess_secretary,
+body[data-role="head_warden"]      .role-student { display: block; }
+body[data-role="super_admin"]      .role-super_admin,
+body[data-role="super_admin"]      .role-head_warden,
+body[data-role="super_admin"]      .role-warden,
+body[data-role="super_admin"]      .role-maint_secretary,
+body[data-role="super_admin"]      .role-hostel_rep,
+body[data-role="super_admin"]      .role-mess_secretary,
+body[data-role="super_admin"]      .role-student { display: block; }
+
+/* flex variants for role visibility */
+body[data-role="student"]         .role-student-flex { display: flex !important; }
+body[data-role="hostel_rep"]      .role-hostel_rep-flex { display: flex !important; }
+body[data-role="maint_secretary"] .role-maint_secretary-flex { display: flex !important; }
+body[data-role="warden"]          .role-warden-flex,
+body[data-role="head_warden"]     .role-warden-flex,
+body[data-role="super_admin"]     .role-warden-flex { display: flex !important; }
+body[data-role="super_admin"]     .role-super_admin-flex { display: flex !important; }
+
+/* ═══════════════════════════════════════════════
+   PROFILE DROPDOWN
+   ═══════════════════════════════════════════════ */
+.profile-dropdown {
+  display: none; position: absolute; bottom: calc(100% + 8px); left: 0;
+  width: 100%; z-index: 200;
+}
+.profile-dropdown.open { display: block; animation: slideUp 0.18s ease; }
+
+/* ═══════════════════════════════════════════════
+   FILE UPLOAD
+   ═══════════════════════════════════════════════ */
+.upload-zone {
+  border: 2px dashed rgba(99,102,241,0.3); border-radius: var(--r-md);
+  padding: 20px; text-align: center; cursor: pointer;
+  transition: all 0.2s; background: var(--accent-light);
+}
+.upload-zone:hover, .upload-zone.dragover {
+  border-color: var(--accent); background: rgba(99,102,241,0.08);
+}
+
+/* ═══════════════════════════════════════════════
+   STAT CARDS
+   ═══════════════════════════════════════════════ */
+.stat-card {
+  border-radius: var(--r-lg); padding: 18px;
+  display: flex; flex-direction: column; gap: 6px;
+  background: var(--surface);
+  box-shadow: var(--clay-md);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+.stat-card:hover { transform: translateY(-3px); box-shadow: var(--clay-lg); }
+.stat-value { font-family: 'Poppins', sans-serif; font-size: 1.75rem; font-weight: 700; line-height: 1; }
+.stat-label { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+
+/* Colored stat accents */
+.stat-blue   { border-top: 3px solid #3B82F6; }
+.stat-indigo { border-top: 3px solid #6366F1; }
+.stat-green  { border-top: 3px solid #22C55E; }
+.stat-amber  { border-top: 3px solid #F59E0B; }
+.stat-red    { border-top: 3px solid #EF4444; }
+
+/* ═══════════════════════════════════════════════
+   MESSAGES
+   ═══════════════════════════════════════════════ */
+.msg { border-radius: var(--r-md); padding: 10px 14px; font-size: 0.8rem; font-weight: 500; margin-top: 8px; }
+.msg--success { background: var(--success-light); color: #166534; border: 1px solid #BBF7D0; }
+.msg--error   { background: var(--danger-light);  color: #991B1B; border: 1px solid #FECACA; }
+
+/* ═══════════════════════════════════════════════
+   CHART
+   ═══════════════════════════════════════════════ */
+.chart-wrap { position: relative; height: 260px; width: 100%; }
+
+/* ═══════════════════════════════════════════════
+   SEARCH DROPDOWN
+   ═══════════════════════════════════════════════ */
+.search-dropdown {
+  position: absolute; z-index: 50; width: 100%; top: calc(100% + 4px);
+  background: var(--surface); border-radius: var(--r-md);
+  box-shadow: var(--clay-lg); border: 1px solid var(--border);
+  max-height: 180px; overflow-y: auto; display: none;
+}
+.search-dropdown.open { display: block; animation: viewIn 0.15s ease; }
+.search-option {
+  padding: 8px 12px; cursor: pointer; font-size: 0.8rem; font-weight: 500;
+  border-radius: 8px; margin: 2px; transition: background 0.12s;
+}
+.search-option:hover { background: var(--primary-light); color: var(--primary-dark); }
+
+/* ═══════════════════════════════════════════════
+   MODALS
+   ═══════════════════════════════════════════════ */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(15,23,42,0.6); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center; padding: 16px;
+}
+.modal-box {
+  background: var(--surface); border-radius: var(--r-xl);
+  box-shadow: var(--clay-lg); border: 1px solid var(--border);
+  width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto;
+  animation: slideUp 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  padding: 28px;
+}
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY HELPERS
+   ═══════════════════════════════════════════════ */
+.page-title {
+  font-family: 'Poppins', sans-serif; font-size: 1.625rem; font-weight: 700;
+  color: var(--text); letter-spacing: -0.02em;
+}
+.section-title {
+  font-size: 0.9rem; font-weight: 700; color: var(--text-body);
+}
+.text-muted { color: var(--text-muted); font-size: 0.8rem; }
+
+/* ═══════════════════════════════════════════════
+   NOTICE TAGS
+   ═══════════════════════════════════════════════ */
+.tag-urgent { background: linear-gradient(135deg,#EF4444,#DC2626); color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 8px; border-radius: var(--r-full); text-transform: uppercase; letter-spacing: 0.06em; }
+.tag-new    { background: linear-gradient(135deg,#22C55E,#16A34A); color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 8px; border-radius: var(--r-full); text-transform: uppercase; letter-spacing: 0.06em; }
+.tag-info   { background: linear-gradient(135deg,#60A5FA,#3B82F6); color: white; font-size: 0.6rem; font-weight: 800; padding: 2px 8px; border-radius: var(--r-full); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* ── Mobile ── */
+@media (max-width: 1024px) {
+  #sidebar { transform: translateX(-100%); transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
+  #sidebar.open { transform: translateX(0); }
+  #app-main { margin-left: 0 !important; }
+}
+</style>
+</head>
+<body class="app-bg" id="main-body">
+
+<!-- ═══ AUTH CONTAINER ═══ -->
+<div id="auth-container" class="auth-bg min-h-screen flex flex-col items-center justify-center px-4 py-10 relative overflow-hidden">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+
+  <!-- Brand -->
+  <div class="text-center mb-8 relative z-10">
+    <div class="inline-flex items-center justify-center w-20 h-20 rounded-3xl mb-4" style="background:linear-gradient(135deg,#3B82F6,#4F46E5);box-shadow:6px 6px 18px rgba(79,70,229,0.35),-3px -3px 10px rgba(255,255,255,0.8);">
+      <span class="text-4xl">🎓</span>
+    </div>
+    <h1 class="font-bold text-3xl" style="font-family:'Poppins',sans-serif;color:#1C398E;letter-spacing:-0.02em;">HostelHub</h1>
+    <p class="text-sm font-semibold mt-1" style="color:#6366F1;">Rajiv Gandhi Institute of Petroleum Technology</p>
+    <p class="text-xs mt-0.5" style="color:#6B7280;">Jais, Amethi · Institution of National Importance</p>
+  </div>
+
+  <!-- Auth cards -->
+  <div class="w-full max-w-md relative z-10">
+
+    <!-- LOGIN -->
+    <div id="auth-card-login" class="auth-card active clay clay--static" style="padding:32px;">
+      <h2 class="section-title mb-1" style="font-family:'Poppins',sans-serif;font-size:1.1rem;">Welcome back</h2>
+      <p class="text-muted mb-5">Sign in to your student portal</p>
+      <form id="login-form" style="display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <label class="field-label">College Email</label>
+          <input type="email" id="login-email" required placeholder="rollno@rgipt.ac.in" autocomplete="email" class="field" style="width:100%;">
+        </div>
+        <div>
+          <label class="field-label">Password</label>
+          <input type="password" id="login-password" required placeholder="••••••••" autocomplete="current-password" class="field" style="width:100%;">
+        </div>
+        <button type="submit" id="login-btn" class="btn btn--primary btn--lg btn--full" style="margin-top:4px;">
+          <span>Sign In</span>
+        </button>
+        <div id="login-message" class="hidden"></div>
+      </form>
+      <div class="text-center mt-5" style="font-size:0.8rem;">
+        <span style="color:#6B7280;">Don't have an account?</span>
+        <a href="#" class="auth-link font-semibold ml-1" data-target="auth-card-register" style="color:#3B82F6;">Register</a>
+      </div>
+      <div class="text-center mt-1.5">
+        <a href="#" class="auth-link" data-target="auth-card-forgot" style="font-size:0.75rem;color:#9CA3AF;">Forgot password?</a>
+      </div>
+    </div>
+
+    <!-- REGISTER -->
+    <div id="auth-card-register" class="auth-card clay clay--static" style="padding:32px;">
+      <h2 class="section-title mb-1" style="font-family:'Poppins',sans-serif;font-size:1.1rem;">Create Account</h2>
+      <p class="text-muted mb-5">Verify your college email to register</p>
+      <form id="register-form" style="display:flex;flex-direction:column;gap:12px;">
+        <!-- Step 1: Email -->
+        <div id="reg-step-email">
+          <label class="field-label">College Email</label>
+          <input type="email" id="reg-email" required placeholder="rollno@rgipt.ac.in" class="field" style="width:100%;margin-bottom:10px;">
+          <button type="button" id="send-otp-btn" class="btn btn--accent btn--full">Send OTP</button>
+          <div id="send-otp-message" class="hidden"></div>
+        </div>
+        <!-- Step 2: OTP -->
+        <div id="reg-step-otp" class="hidden" style="display:none;">
+          <p style="font-size:0.8rem;color:#374151;margin-bottom:10px;">Enter the 6-digit OTP sent to <strong id="otp-email-display" style="color:#3B82F6;"></strong></p>
+          <input type="text" id="otp-input" placeholder="000000" maxlength="6" inputmode="numeric" class="field" style="width:100%;text-align:center;letter-spacing:0.25em;font-size:1.2rem;font-family:'JetBrains Mono',monospace;margin-bottom:10px;">
+          <button type="button" id="verify-otp-btn" class="btn btn--primary btn--full">Verify OTP</button>
+          <div id="verify-otp-message" class="hidden"></div>
+        </div>
+        <!-- Step 3: Details -->
+        <div id="reg-step-details" class="hidden" style="display:none;flex-direction:column;gap:12px;">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <label class="field-label">First Name</label>
+              <input type="text" id="reg-first" required placeholder="First" class="field" style="width:100%;">
+            </div>
+            <div>
+              <label class="field-label">Last Name</label>
+              <input type="text" id="reg-last" required placeholder="Last" class="field" style="width:100%;">
+            </div>
+          </div>
+          <div>
+            <label class="field-label">Roll Number <span style="font-weight:400;text-transform:none;color:#9CA3AF;">(optional)</span></label>
+            <input type="text" id="reg-roll" placeholder="e.g. EGE21001" class="field" style="width:100%;">
+          </div>
+          <div>
+            <label class="field-label">Hostel Block</label>
+            <select id="reg-hostel" class="field field-select" style="width:100%;">
+              <option value="">— Select Hostel —</option>
+              <option value="asima_chatterjee">Asima Chatterjee Hostel (Girls)</option>
+              <option value="a_block">A Block (Girls)</option>
+              <option value="b_block">B Block (Boys)</option>
+              <option value="c_block">C Block (Boys)</option>
+              <option value="d_block">D Block (Boys)</option>
+              <option value="e_block">E Block (Boys)</option>
+              <option value="f_block">F Block (Boys)</option>
+              <option value="g_block">G Block (Boys)</option>
+              <option value="h_block">H Block (Boys)</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Role</label>
+            <select id="reg-role" class="field field-select" style="width:100%;">
+              <option value="student">Student</option>
+              <option value="hostel_rep">Hostel Representative</option>
+              <option value="mess_secretary">Mess Secretary</option>
+              <option value="maint_secretary">Maintenance Secretary</option>
+              <option value="warden">Warden</option>
+              <option value="head_warden">Head Warden</option>
+            </select>
+          </div>
+          <div>
+            <label class="field-label">Password <span style="font-weight:400;text-transform:none;color:#9CA3AF;">min 8 characters</span></label>
+            <input type="password" id="reg-password" required placeholder="••••••••" class="field" style="width:100%;">
+          </div>
+          <button type="submit" id="register-btn" class="btn btn--primary btn--full">Create Account</button>
+          <div id="register-message" class="hidden"></div>
+        </div>
+      </form>
+      <div class="text-center mt-5">
+        <a href="#" class="auth-link font-semibold" data-target="auth-card-login" style="color:#3B82F6;font-size:0.8rem;">← Back to Login</a>
+      </div>
+    </div>
+
+    <!-- FORGOT -->
+    <div id="auth-card-forgot" class="auth-card clay clay--static" style="padding:32px;">
+      <h2 class="section-title mb-1" style="font-family:'Poppins',sans-serif;font-size:1.1rem;">Reset Password</h2>
+      <p class="text-muted mb-5">Enter your college email to receive a reset link.</p>
+      <form id="forgot-form" style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label class="field-label">College Email</label>
+          <input type="email" id="forgot-email" required placeholder="rollno@rgipt.ac.in" class="field" style="width:100%;">
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Send Reset Link</button>
+      </form>
+      <div id="forgot-message" class="hidden"></div>
+      <div class="text-center mt-4">
+        <a href="#" class="auth-link font-semibold" data-target="auth-card-login" style="color:#3B82F6;font-size:0.8rem;">← Back to Login</a>
+      </div>
+    </div>
+
+    <!-- PENDING -->
+    <div id="auth-card-pending" class="auth-card clay clay--static" style="padding:32px;text-align:center;">
+      <div style="font-size:3rem;margin-bottom:12px;">⏳</div>
+      <h2 class="section-title mb-2" style="font-family:'Poppins',sans-serif;">Account Pending Approval</h2>
+      <p style="font-size:0.83rem;color:#374151;margin-bottom:6px;">Thank you, <strong id="pending-name"></strong>! Your request has been submitted.</p>
+      <p style="font-size:0.77rem;color:#6B7280;">A Super Admin must approve your account. You'll be notified at <strong id="pending-email" style="color:#3B82F6;"></strong>.</p>
+      <a href="#" class="auth-link" data-target="auth-card-login" style="display:inline-block;margin-top:16px;font-size:0.8rem;font-weight:600;color:#3B82F6;">← Back to Login</a>
+    </div>
+
+  </div>
+
+  <p style="position:relative;z-index:10;margin-top:28px;font-size:0.72rem;color:#9CA3AF;text-align:center;">
+    © 2025 HostelHub · RGIPT, Jais, Amethi · Institution of National Importance
+  </p>
+</div>
+
+<!-- ═══ URL CONFIG MODAL ═══ -->
+<div id="url-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3 class="section-title mb-1">⚙️ Backend Server URL</h3>
+    <p class="text-muted mb-4">Set your backend URL (ngrok, Render, or localhost). Saved locally.</p>
+    <input type="url" id="url-modal-input" placeholder="https://your-backend.onrender.com" class="field" style="width:100%;margin-bottom:14px;font-family:'JetBrains Mono',monospace;">
+    <div style="display:flex;gap:10px;justify-content:flex-end;">
+      <button onclick="document.getElementById('url-modal').classList.add('hidden')" class="btn btn--ghost btn--sm">Cancel</button>
+      <button onclick="saveBackendUrl()" class="btn btn--primary btn--sm">Save & Reconnect</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ATTACHMENT MODAL ═══ -->
+<div id="attachment-modal" class="modal-overlay hidden" style="max-width:none;">
+  <div class="modal-box" style="max-width:700px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+      <h3 id="attachment-modal-title" class="section-title"></h3>
+      <button onclick="document.getElementById('attachment-modal').classList.add('hidden')" style="background:none;border:none;cursor:pointer;font-size:1.3rem;color:#6B7280;">✕</button>
+    </div>
+    <div id="attachment-modal-content"></div>
+  </div>
+</div>
+
+<!-- ═══ FINE PAYMENT MODAL ═══ -->
+<div id="fine-payment-modal" class="modal-overlay hidden">
+  <div class="modal-box">
+    <h3 class="section-title mb-1">💳 Pay Fine <span style="color:#3B82F6;">#<span id="payment-fine-id"></span></span></h3>
+    <p style="font-size:0.83rem;color:#374151;margin-bottom:14px;">Amount: <strong style="color:#D97706;font-size:1.1rem;" id="payment-fine-amount"></strong></p>
+    <div class="clay clay--sm clay--static" style="padding:14px;margin-bottom:10px;">
+      <p style="font-weight:700;font-size:0.83rem;margin-bottom:4px;">💵 Cash at Hostel Office</p>
+      <p style="font-size:0.77rem;color:#6B7280;">Visit the warden's office with Fine ID <strong id="payment-fine-id-2"></strong> during office hours (10:00 AM – 5:00 PM, Mon–Sat).</p>
+    </div>
+    <div class="clay clay--sm clay--static" style="padding:14px;opacity:.6;">
+      <p style="font-weight:700;font-size:0.83rem;margin-bottom:2px;">📱 Online Payment <span style="font-weight:400;font-size:0.72rem;color:#9CA3AF;">— Coming Soon</span></p>
+      <p style="font-size:0.77rem;color:#9CA3AF;">Razorpay integration coming shortly.</p>
+    </div>
+    <button onclick="document.getElementById('fine-payment-modal').classList.add('hidden')" class="btn btn--ghost btn--full" style="margin-top:14px;">Close</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     APP CONTAINER
+     ═══════════════════════════════════════════════════════════════ -->
+<div id="app-container" style="display:none;min-height:100vh;">
+
+  <!-- Connection Banner -->
+  <div id="connection-banner" class="hidden" style="background:#DC2626;color:white;padding:8px 16px;display:flex;align-items:center;gap:10px;font-size:0.8rem;font-weight:600;">
+    <span>⚠</span>
+    <span id="connection-banner-msg">Cannot reach backend server.</span>
+    <button onclick="document.getElementById('url-modal-input').value=BASE_URL;document.getElementById('url-modal').classList.remove('hidden')" style="margin-left:auto;background:none;border:none;color:white;cursor:pointer;text-decoration:underline;">Change URL</button>
+    <button onclick="document.getElementById('connection-banner').classList.add('hidden')" style="background:none;border:none;color:rgba(255,255,255,0.7);cursor:pointer;">✕</button>
+  </div>
+
+  <!-- DESKTOP LAYOUT -->
+  <div class="hidden lg:flex" style="height:100vh;overflow:hidden;">
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar">
+      <!-- Logo -->
+      <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid var(--border);height:var(--header-h);">
+        <div style="width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#3B82F6,#4F46E5);box-shadow:4px 4px 10px rgba(79,70,229,0.3);display:flex;align-items:center;justify-content:center;font-size:1.15rem;flex-shrink:0;">🎓</div>
+        <div style="min-width:0;">
+          <p style="font-family:'Poppins',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);line-height:1.2;">HostelHub</p>
+          <p style="font-size:0.6rem;color:var(--text-muted);line-height:1.3;">RGIPT, Jais Amethi</p>
+        </div>
+      </div>
+
+      <!-- Nav -->
+      <nav style="flex:1;overflow-y:auto;padding:8px 0;">
+        <p class="nav-group-title">Main</p>
+        <a href="#" class="nav-link" data-view="dashboard"><span class="nav-icon">📊</span>Dashboard</a>
+        <a href="#" class="nav-link" data-view="noticeboard"><span class="nav-icon">📋</span>Notice Board</a>
+        <a href="#" class="nav-link" data-view="explore"><span class="nav-icon">🍽️</span>Mess Menu</a>
+
+        <p class="nav-group-title" style="margin-top:8px;">Student</p>
+        <a href="#" class="nav-link" data-view="submit"><span class="nav-icon">✏️</span>Complaints</a>
+        <a href="#" class="nav-link role-student" data-view="gatepass"><span class="nav-icon">🚪</span>Gatepass</a>
+        <a href="#" class="nav-link role-student" data-view="leave"><span class="nav-icon">📅</span>Leave Request</a>
+        <a href="#" class="nav-link role-student" data-view="fines"><span class="nav-icon">💰</span>My Fines</a>
+
+        <p class="nav-group-title role-hostel_rep" style="margin-top:8px;">Officials</p>
+        <a href="#" class="nav-link role-hostel_rep" data-view="gatepass"><span class="nav-icon">🚪</span>Gatepass Mgmt</a>
+        <a href="#" class="nav-link role-warden" data-view="leave-manage"><span class="nav-icon">📅</span>Leave Mgmt</a>
+        <a href="#" class="nav-link role-warden" data-view="visitors"><span class="nav-icon">👥</span>Visitor Log</a>
+        <a href="#" class="nav-link role-warden" data-view="rooms"><span class="nav-icon">🏠</span>Room Mgmt</a>
+        <a href="#" class="nav-link role-maint_secretary" data-view="management"><span class="nav-icon">🛠️</span>Fines & Items</a>
+
+        <p class="nav-group-title role-super_admin" style="margin-top:8px;">Administration</p>
+        <a href="#" class="nav-link role-super_admin" data-view="admin"><span class="nav-icon">🛡️</span>Admin Panel</a>
+      </nav>
+
+      <!-- Bottom controls -->
+      <div style="padding:8px 0;border-top:1px solid var(--border);">
+        <button onclick="document.getElementById('url-modal-input').value=BASE_URL;document.getElementById('url-modal').classList.remove('hidden')" class="nav-link" style="width:calc(100% - 16px);text-align:left;border:none;background:none;cursor:pointer;font-family:inherit;">
+          <span class="nav-icon">⚙️</span><span style="font-size:0.78rem;font-weight:600;">Server URL</span>
+        </button>
+        <button id="darkModeToggle" class="nav-link" style="width:calc(100% - 16px);text-align:left;border:none;background:none;cursor:pointer;font-family:inherit;">
+          <span class="nav-icon" id="darkModeIcon">🌙</span><span style="font-size:0.78rem;font-weight:600;">Dark Mode</span>
+        </button>
+      </div>
+
+      <!-- User card -->
+      <div style="padding:10px;border-top:1px solid var(--border);position:relative;">
+        <div class="profile-dropdown clay clay--sm clay--static" id="profile-menu" style="padding:6px;">
+          <a href="#" data-view="profile" class="nav-link search-option" style="font-size:0.8rem;">👤 My Profile</a>
+          <div style="height:1px;background:var(--border);margin:4px 0;"></div>
+          <a href="#" id="logout-button" style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;font-size:0.8rem;font-weight:600;color:#DC2626;text-decoration:none;cursor:pointer;transition:background 0.15s;">
+            🚪 Logout
+          </a>
+        </div>
+        <button id="profile-menu-button" style="width:100%;display:flex;align-items:center;gap:10px;padding:10px;border-radius:var(--r-md);background:none;border:none;cursor:pointer;transition:background 0.15s;">
+          <div id="user-avatar-text" style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#4F46E5);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;flex-shrink:0;box-shadow:3px 3px 8px rgba(79,70,229,0.3);">A</div>
+          <div style="text-align:left;min-width:0;flex:1;">
+            <p id="profile-name" style="font-size:0.78rem;font-weight:700;color:var(--text-body);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Loading…</p>
+            <p id="profile-email" style="font-size:0.65rem;color:var(--text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"></p>
+          </div>
+          <span id="profile-role-tag" class="badge badge--blue">Student</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main id="app-main" style="flex:1;overflow-y:auto;margin-left:var(--sidebar-w);">
+      <!-- Top bar -->
+      <div id="topbar" style="position:sticky;top:0;z-index:50;background:rgba(248,250,255,0.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:var(--header-h);display:flex;align-items:center;padding:0 28px;gap:12px;">
+        <div style="flex:1;">
+          <span id="topbar-title" style="font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;color:var(--text);">Dashboard</span>
+        </div>
+        <div id="fine-alert" class="hidden" style="display:flex;align-items:center;gap:6px;background:var(--warning-light);border:1px solid #FDE68A;border-radius:var(--r-md);padding:6px 12px;">
+          <span style="font-size:0.72rem;font-weight:700;color:#92400E;">⚠ Unpaid: <span id="unpaid-fine-badge"></span></span>
+        </div>
+      </div>
+      <div id="views-container" style="padding:24px;max-width:1000px;margin:0 auto;"></div>
+    </main>
+  </div>
+
+  <!-- MOBILE LAYOUT -->
+  <div class="flex flex-col lg:hidden" style="height:100vh;">
+    <!-- Mobile Top Bar -->
+    <header style="display:flex;align-items:center;justify-content:space-between;padding:0 14px;height:56px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;box-shadow:0 2px 8px rgba(99,102,241,0.08);">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button id="mobile-menu-btn" style="background:none;border:none;cursor:pointer;font-size:1.2rem;padding:6px;">☰</button>
+        <div style="width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#3B82F6,#4F46E5);display:flex;align-items:center;justify-content:center;">🎓</div>
+        <span style="font-family:'Poppins',sans-serif;font-weight:700;font-size:0.9rem;color:var(--text);">HostelHub</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <button id="darkModeToggle-mobile" style="background:none;border:none;cursor:pointer;font-size:1.1rem;padding:6px;"><span id="darkModeIcon-mobile">🌙</span></button>
+        <button id="profile-menu-button-mobile" style="background:none;border:none;cursor:pointer;">
+          <div id="user-avatar-mobile" style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#4F46E5);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.85rem;">A</div>
+        </button>
+      </div>
+    </header>
+    <main style="flex:1;overflow-y:auto;padding-bottom:72px;">
+      <div id="views-container-mobile" style="padding:14px;"></div>
+    </main>
+    <!-- Mobile Bottom Nav -->
+    <nav style="position:fixed;bottom:0;left:0;right:0;background:var(--surface);border-top:1px solid var(--border);display:flex;z-index:20;box-shadow:0 -4px 16px rgba(99,102,241,0.1);">
+      <a href="#" class="nav-link-mobile" data-view="dashboard" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;font-size:0.6rem;font-weight:600;color:var(--text-muted);text-decoration:none;gap:2px;transition:color 0.15s;"><span style="font-size:1.1rem;">📊</span>Home</a>
+      <a href="#" class="nav-link-mobile" data-view="noticeboard" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;font-size:0.6rem;font-weight:600;color:var(--text-muted);text-decoration:none;gap:2px;transition:color 0.15s;"><span style="font-size:1.1rem;">📋</span>Board</a>
+      <a href="#" class="nav-link-mobile" data-view="submit" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;font-size:0.6rem;font-weight:600;color:var(--text-muted);text-decoration:none;gap:2px;transition:color 0.15s;"><span style="font-size:1.1rem;">✏️</span>Report</a>
+      <a href="#" class="nav-link-mobile" data-view="gatepass" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;font-size:0.6rem;font-weight:600;color:var(--text-muted);text-decoration:none;gap:2px;transition:color 0.15s;"><span style="font-size:1.1rem;">🚪</span>Gate</a>
+      <a href="#" class="nav-link-mobile" data-view="profile" style="flex:1;display:flex;flex-direction:column;align-items:center;padding:8px 4px;font-size:0.6rem;font-weight:600;color:var(--text-muted);text-decoration:none;gap:2px;transition:color 0.15s;"><span style="font-size:1.1rem;">👤</span>Profile</a>
+    </nav>
+  </div>
+
+</div><!-- /app-container -->
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// CONSTANTS
+// ═══════════════════════════════════════════════════════════════════
+let BASE_URL = localStorage.getItem('hostelhub_base_url') || 'http://localhost:8000';
+let authToken = null;
+let demoUser = null;
+let currentView = 'dashboard';
+let complaintChartInstance = null;
+let attachmentQueue = [];
+
+const HOSTELS = [
+  { id:'asima_chatterjee', name:'Asima Chatterjee Hostel (Girls)', gender:'girls' },
+  { id:'a_block', name:'A Block (Girls)', gender:'girls' },
+  { id:'b_block', name:'B Block (Boys)', gender:'boys' },
+  { id:'c_block', name:'C Block (Boys)', gender:'boys' },
+  { id:'d_block', name:'D Block (Boys)', gender:'boys' },
+  { id:'e_block', name:'E Block (Boys)', gender:'boys' },
+  { id:'f_block', name:'F Block (Boys)', gender:'boys' },
+  { id:'g_block', name:'G Block (Boys)', gender:'boys' },
+  { id:'h_block', name:'H Block (Boys)', gender:'boys' },
+];
+const HOSTEL_NAME = id => { const h=HOSTELS.find(x=>x.id===id); return h?h.name:(id==='all'?'All Hostels':(id||'N/A')); };
+const ROLE_NAMES = { student:'Student', hostel_rep:'Hostel Rep', mess_secretary:'Mess Secy', maint_secretary:'Maint Secy', warden:'Warden', head_warden:'Head Warden', super_admin:'Super Admin' };
+const WARDEN_ROLES = ['warden','head_warden','super_admin'];
+const ADMIN_ROLES = ['hostel_rep','mess_secretary','maint_secretary','warden','head_warden','super_admin'];
+function isWarden(r){ return WARDEN_ROLES.includes(r); }
+function isAdmin(r){ return ADMIN_ROLES.includes(r); }
+
+// ═══════════════════════════════════════════════════════════════════
+// API SERVICE
+// ═══════════════════════════════════════════════════════════════════
+const Api = {
+  async request(method, path, body=null){
+    const headers = {'Content-Type':'application/json'};
+    if(authToken) headers['Authorization'] = `Bearer ${authToken}`;
+    const res = await fetch(`${BASE_URL}${path}`,{method,headers,body:body?JSON.stringify(body):undefined});
+    if(!res.ok){ const e=await res.json().catch(()=>({detail:'Error'})); throw new Error(e.detail||`HTTP ${res.status}`); }
+    return res.json();
+  },
+  get:(p)=>Api.request('GET',p),
+  post:(p,b)=>Api.request('POST',p,b),
+  put:(p,b)=>Api.request('PUT',p,b),
+  patch:(p,b)=>Api.request('PATCH',p,b),
+  delete:(p)=>Api.request('DELETE',p),
+  // Auth
+  login:(e,p)=>Api.post('/auth/login',{email:e,password:p}),
+  sendOtp:(e)=>Api.post('/auth/send-otp',{email:e}),
+  verifyOtp:(e,o)=>Api.post('/auth/verify-otp',{email:e,otp:o}),
+  register:(d)=>Api.post('/auth/register',d),
+  forgotPassword:(e)=>Api.post('/auth/forgot-password',{email:e}),
+  // Data
+  getAnnouncements:()=>Api.get('/announcements'),
+  postAnnouncement:(d)=>Api.post('/announcements',d),
+  getNoticePosts:(h)=>Api.get('/notice-posts'+(h?`?hostel=${h}`:'')),
+  createNoticePost:(d)=>Api.post('/notice-posts',d),
+  deleteNoticePost:(id)=>Api.delete(`/notice-posts/${id}`),
+  getMenu:(day)=>Api.get(`/menu/${day}`),
+  updateMenu:(day,meal,items)=>Api.put(`/menu/${day}/${meal}`,{items}),
+  getComplaints:()=>Api.get('/complaints'),
+  postComplaint:(d)=>Api.post('/complaints',d),
+  updateComplaint:(id,s)=>Api.patch(`/complaints/${id}`,{status:s}),
+  postFeedback:(d)=>Api.post('/feedback',d),
+  updateProfile:(d)=>Api.put('/users/me',d),
+  updatePassword:(c,n)=>Api.put('/users/me/password',{current_password:c,new_password:n}),
+  getFines:(s)=>Api.get('/fines'+(s?`?status=${s}`:'')),
+  getMyFineSummary:()=>Api.get('/fines/summary/me'),
+  createFine:(d)=>Api.post('/fines',d),
+  markFinePaidCash:(id,ref,notes)=>Api.patch(`/fines/${id}/mark-paid-cash`,{status:'paid',payment_reference:ref,notes}),
+  waiveFine:(id,notes)=>Api.patch(`/fines/${id}/waive`,{notes}),
+  getItems:(s)=>Api.get('/prohibited-items'+(s?`?status=${s}`:'')),
+  logItem:(d)=>Api.post('/prohibited-items',d),
+  updateItem:(id,s,n)=>Api.patch(`/prohibited-items/${id}`,{status:s,disposal_notes:n}),
+  getGatepasses:(h,s)=>{ let q=[]; if(h)q.push(`hostel=${h}`); if(s)q.push(`status=${s}`); return Api.get('/gatepass'+(q.length?'?'+q.join('&'):'')); },
+  createGatepass:(d)=>Api.post('/gatepass',d),
+  updateGatepass:(id,s,r)=>Api.patch(`/gatepass/${id}`,{status:s,rejection_reason:r}),
+  getLeaveRequests:(h,s)=>{ let q=[]; if(h)q.push(`hostel=${h}`); if(s)q.push(`status=${s}`); return Api.get('/leave'+(q.length?'?'+q.join('&'):'')); },
+  createLeave:(d)=>Api.post('/leave',d),
+  updateLeave:(id,s,n)=>Api.patch(`/leave/${id}`,{status:s,notes:n}),
+  getVisitors:(h)=>Api.get('/visitors'+(h?`?hostel=${h}`:'')),
+  logVisitor:(d)=>Api.post('/visitors',d),
+  exitVisitor:(id)=>Api.patch(`/visitors/${id}/exit`,{}),
+  getRooms:(h)=>Api.get('/rooms'+(h?`?hostel=${h}`:'')),
+  allocateRoom:(d)=>Api.post('/rooms',d),
+  deallocateRoom:(id)=>Api.delete(`/rooms/${id}`),
+  getAllUsers:()=>Api.get('/admin/users'),
+  getPendingUsers:()=>Api.get('/admin/users/pending'),
+  approveUser:(id)=>Api.patch(`/admin/users/${id}/approve`,{}),
+  rejectUser:(id)=>Api.delete(`/admin/users/${id}/reject`),
+  changeRole:(id,role,hostel)=>Api.patch(`/admin/users/${id}/role`,{role,hostel}),
+  deleteUser:(id)=>Api.delete(`/admin/users/${id}`),
+  searchUsers:(q)=>Api.get(`/users/search?q=${encodeURIComponent(q)}`),
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// UI HELPERS
+// ═══════════════════════════════════════════════════════════════════
+function showMsg(el, text, ok){
+  if(!el) return;
+  el.className = ok ? 'msg msg--success' : 'msg msg--error';
+  el.textContent = text; el.classList.remove('hidden');
+  setTimeout(()=>el.classList.add('hidden'), 5000);
+}
+function setLoading(btn, loading, text){
+  if(!btn) return;
+  if(loading){ btn.disabled=true; btn.innerHTML=`<span class="spinner"></span><span>Loading…</span>`; }
+  else { btn.disabled=false; btn.innerHTML=`<span>${text}</span>`; }
+}
+function getRoleBadge(role){
+  const map = { student:'badge--blue', hostel_rep:'badge--indigo', mess_secretary:'badge--green',
+    maint_secretary:'badge--yellow', warden:'badge--purple', head_warden:'badge--pink', super_admin:'badge--red' };
+  return `<span class="badge ${map[role]||'badge--gray'}">${ROLE_NAMES[role]||role}</span>`;
+}
+function getStatusBadge(s){
+  const m={pending:'badge--yellow',approved:'badge--green',rejected:'badge--red',
+    Open:'badge--red','In Progress':'badge--yellow',Resolved:'badge--green',
+    unpaid:'badge--red',paid:'badge--green',waived:'badge--purple',
+    seized:'badge--red',returned:'badge--green',disposed:'badge--gray'};
+  return `<span class="badge ${m[s]||'badge--gray'}">${s}</span>`;
+}
+function fmtDate(s){ if(!s) return 'N/A'; return new Date(s).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+function fmtDateTime(s){ if(!s) return 'N/A'; return new Date(s).toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
+function saveBackendUrl(){
+  const v = document.getElementById('url-modal-input').value.trim().replace(/\/$/,'');
+  if(v){ BASE_URL=v; localStorage.setItem('hostelhub_base_url',v); document.getElementById('url-modal').classList.add('hidden'); }
+}
+function openPaymentModal(id, amount){
+  document.getElementById('payment-fine-id').textContent = id;
+  document.getElementById('payment-fine-id-2').textContent = id;
+  document.getElementById('payment-fine-amount').textContent = `₹${parseFloat(amount).toFixed(2)}`;
+  document.getElementById('fine-payment-modal').classList.remove('hidden');
+}
+function openAttachmentModal(name,type,data){
+  document.getElementById('attachment-modal-title').textContent=name;
+  const c=document.getElementById('attachment-modal-content');
+  if(type.startsWith('image/')) c.innerHTML=`<img src="${data}" style="width:100%;border-radius:12px;" alt="${name}">`;
+  else if(type==='application/pdf') c.innerHTML=`<embed src="${data}" type="application/pdf" style="width:100%;height:60vh;border-radius:12px;"><p style="text-align:center;margin-top:8px;font-size:0.75rem;color:#6B7280;">If PDF doesn't render, <a href="${data}" download="${name}" style="color:#3B82F6;">download here</a></p>`;
+  else c.innerHTML=`<div style="text-align:center;padding:32px;"><p style="color:#6B7280;margin-bottom:12px;">Preview unavailable.</p><a href="${data}" download="${name}" class="btn btn--primary btn--sm">⬇ Download ${name}</a></div>`;
+  document.getElementById('attachment-modal').classList.remove('hidden');
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// VIEW HTML
+// ═══════════════════════════════════════════════════════════════════
+function getViewsHTML(){
+  const hostelOpts = HOSTELS.map(h=>`<option value="${h.id}">${h.name}</option>`).join('');
+  return `
+<!-- DASHBOARD -->
+<div id="view-dashboard" class="view" style="display:flex;flex-direction:column;gap:20px;">
+  <div>
+    <h2 class="page-title">Welcome back, <span id="welcome-username">Student</span> 👋</h2>
+    <p class="text-muted" style="margin-top:4px;">Here's what's happening at your hostel today.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;">
+    <div class="stat-card stat-blue"><div class="stat-label">📋 Notices</div><div class="stat-value" id="dash-notices">—</div></div>
+    <div class="stat-card stat-indigo"><div class="stat-label">🔧 Open Complaints</div><div class="stat-value" id="dash-complaints">—</div></div>
+    <div class="stat-card stat-green"><div class="stat-label">🚪 Gatepass</div><div class="stat-value" id="dash-gatepass" style="font-size:0.95rem;">—</div></div>
+    <div class="stat-card stat-amber"><div class="stat-label">💰 Unpaid Fines</div><div class="stat-value" id="dash-fines" style="color:#D97706;">₹0</div></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="clay clay--static" style="padding:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <span class="section-title">📋 Latest Notices</span>
+        <a href="#" class="nav-link" data-view="noticeboard" style="font-size:0.75rem;color:#3B82F6;font-weight:600;padding:4px 8px;">View all →</a>
+      </div>
+      <div id="home-announcements" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+    </div>
+    <div class="clay clay--static" style="padding:20px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <span class="section-title">🍽️ Today's Menu</span>
+        <a href="#" class="nav-link" data-view="explore" style="font-size:0.75rem;color:#3B82F6;font-weight:600;padding:4px 8px;">Full menu →</a>
+      </div>
+      <div id="home-menu" style="display:flex;flex-direction:column;gap:8px;"><p class="text-muted">Loading…</p></div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="clay clay--static" style="padding:20px;">
+      <p class="section-title" style="margin-bottom:14px;">🔧 My Recent Complaints</p>
+      <div id="home-complaints" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+    </div>
+    <div class="clay clay--static" style="padding:20px;">
+      <p class="section-title" style="margin-bottom:12px;">📊 Complaint Stats</p>
+      <div class="chart-wrap"><canvas id="complaints-chart"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- NOTICE BOARD -->
+<div id="view-noticeboard" class="view" style="display:flex;flex-direction:column;gap:18px;">
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div><h2 class="page-title">Notice Board</h2><p class="text-muted" style="margin-top:4px;">Official notices, circulars & announcements</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <select id="notice-hostel-filter" class="field field-select" style="width:auto;font-size:0.8rem;">
+        <option value="">All Blocks</option>${hostelOpts}
+      </select>
+      <button id="post-notice-btn" class="btn btn--primary btn--sm hidden">✍️ Post Notice</button>
+    </div>
+  </div>
+  <!-- Post Form -->
+  <div id="post-notice-form-card" class="clay clay--static hidden" style="padding:22px;">
+    <p class="section-title" style="margin-bottom:16px;">📌 New Notice Post</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div><label class="field-label">Title *</label><input type="text" id="notice-title" placeholder="Notice title…" class="field" style="width:100%;"></div>
+      <div><label class="field-label">Category</label>
+        <select id="notice-category" class="field field-select" style="width:100%;">
+          <option value="general">General</option><option value="notice">Notice</option>
+          <option value="event">Event</option><option value="deadline">Deadline</option>
+          <option value="circular">Circular</option><option value="urgent">Urgent</option>
+        </select>
+      </div>
+    </div>
+    <div style="margin-bottom:12px;"><label class="field-label">Message *</label><textarea id="notice-body" rows="3" placeholder="Write your notice…" class="field" style="width:100%;resize:vertical;"></textarea></div>
+    <div style="margin-bottom:12px;">
+      <label class="field-label">Target Hostel(s) *</label>
+      <div id="notice-block-selector" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;">
+        <label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem;font-weight:500;"><input type="checkbox" name="target_block" value="all"> All Hostels</label>
+        ${HOSTELS.map(h=>`<label style="display:flex;align-items:center;gap:6px;cursor:pointer;font-size:0.8rem;font-weight:500;" class="notice-block-option" data-hostel="${h.id}"><input type="checkbox" name="target_block" value="${h.id}"> ${h.name}</label>`).join('')}
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div><label class="field-label">Priority Tag</label>
+        <select id="notice-tag" class="field field-select" style="width:100%;"><option value="">None</option><option value="new">New</option><option value="urgent">Urgent</option><option value="info">Info</option></select>
+      </div>
+    </div>
+    <div style="margin-bottom:12px;">
+      <label class="field-label">Attachments <span style="font-weight:400;text-transform:none;color:#9CA3AF;">(images, PDFs — max 5MB each)</span></label>
+      <div class="upload-zone" id="notice-drop-zone" onclick="document.getElementById('notice-file-input').click()">
+        <p style="font-size:0.8rem;color:#6B7280;">📎 Click or drag files here</p>
+        <p style="font-size:0.72rem;color:#9CA3AF;margin-top:4px;">JPG, PNG, PDF, DOC, DOCX supported</p>
+        <input type="file" id="notice-file-input" multiple accept="image/*,.pdf,.doc,.docx,.xlsx,.ppt,.pptx" class="hidden">
+      </div>
+      <div id="notice-attachments-list" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;"></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button id="submit-notice-btn" class="btn btn--primary">📤 Post Notice</button>
+      <button onclick="document.getElementById('post-notice-form-card').classList.add('hidden')" class="btn btn--ghost">Cancel</button>
+    </div>
+    <div id="notice-post-message" class="hidden"></div>
+  </div>
+  <div id="notices-list" style="display:flex;flex-direction:column;gap:12px;"><p class="text-muted">Loading…</p></div>
+</div>
+
+<!-- MESS MENU -->
+<div id="view-explore" class="view" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Mess Menu</h2>
+  <div class="tab-bar" id="menu-day-tabs">
+    ${['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'].map(d=>`<button class="tab" data-day="${d.toLowerCase()}">${d.slice(0,3)}</button>`).join('')}
+  </div>
+  <div class="clay clay--static" style="padding:22px;" id="menu-content"><p class="text-muted">Loading…</p></div>
+  <div id="menu-edit-section" class="clay clay--static hidden" style="padding:22px;">
+    <p class="section-title" style="margin-bottom:16px;">✏️ Edit Meal</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+      <div><label class="field-label">Day</label>
+        <select id="edit-day" class="field field-select" style="width:100%;">
+          ${['monday','tuesday','wednesday','thursday','friday','saturday','sunday'].map(d=>`<option value="${d}">${d.charAt(0).toUpperCase()+d.slice(1)}</option>`).join('')}
+        </select>
+      </div>
+      <div><label class="field-label">Meal</label>
+        <select id="edit-meal" class="field field-select" style="width:100%;"><option value="breakfast">Breakfast</option><option value="lunch">Lunch</option><option value="snacks">Snacks</option><option value="dinner">Dinner</option></select>
+      </div>
+    </div>
+    <div style="margin-bottom:12px;"><label class="field-label">Items (comma separated)</label><input type="text" id="edit-items" placeholder="e.g. Poha, Tea, Banana" class="field" style="width:100%;"></div>
+    <button id="save-menu-btn" class="btn btn--primary">💾 Save Menu</button>
+    <div id="menu-edit-message" class="hidden"></div>
+  </div>
+</div>
+
+<!-- COMPLAINTS -->
+<div id="view-submit" class="view" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Complaints & Feedback</h2>
+  <div class="tab-bar">
+    <button class="tab active" data-subtab="complaints">🔧 File Complaint</button>
+    <button class="tab" data-subtab="feedback">💬 Feedback</button>
+    <button class="tab role-maint_secretary" data-subtab="manage-complaints">📋 Manage</button>
+  </div>
+  <div id="subtab-complaints" class="subtab-content active clay clay--static" style="padding:22px;">
+    <form id="complaint-form" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div><label class="field-label">Category *</label>
+          <select id="comp-cat" class="field field-select" style="width:100%;" required>
+            <option value="">Select…</option><option value="electrical">Electrical</option>
+            <option value="plumbing">Plumbing</option><option value="cleaning">Cleaning</option>
+            <option value="furniture">Furniture</option><option value="internet">Internet/WiFi</option>
+            <option value="water">Water Supply</option><option value="security">Security</option><option value="other">Other</option>
+          </select>
+        </div>
+        <div><label class="field-label">Location *</label><input type="text" id="comp-location" required placeholder="e.g. Room 204, G Block" class="field" style="width:100%;"></div>
+      </div>
+      <div><label class="field-label">Description *</label><textarea id="comp-desc" rows="3" required placeholder="Describe the issue clearly…" class="field" style="width:100%;resize:vertical;"></textarea></div>
+      <button type="submit" id="comp-submit-btn" class="btn btn--primary" style="align-self:flex-start;">📤 Submit Complaint</button>
+      <div id="comp-message" class="hidden"></div>
+    </form>
+  </div>
+  <div id="subtab-feedback" class="subtab-content clay clay--static" style="padding:22px;">
+    <form id="feedback-form" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div><label class="field-label">Area</label>
+          <select id="fb-area" class="field field-select" style="width:100%;">
+            <option value="food">Food Quality</option><option value="cleanliness">Cleanliness</option>
+            <option value="staff">Staff Behaviour</option><option value="facilities">Facilities</option>
+            <option value="security">Security</option><option value="general">General</option>
+          </select>
+        </div>
+        <div><label class="field-label">Rating</label>
+          <select id="fb-rating" class="field field-select" style="width:100%;">
+            <option value="5">⭐⭐⭐⭐⭐ Excellent</option><option value="4">⭐⭐⭐⭐ Good</option>
+            <option value="3">⭐⭐⭐ Average</option><option value="2">⭐⭐ Below Average</option><option value="1">⭐ Poor</option>
+          </select>
+        </div>
+      </div>
+      <div><label class="field-label">Comments</label><textarea id="fb-comments" rows="3" placeholder="Your comments…" class="field" style="width:100%;resize:vertical;"></textarea></div>
+      <button type="submit" id="fb-submit-btn" class="btn btn--primary" style="align-self:flex-start;">📤 Submit Feedback</button>
+      <div id="fb-message" class="hidden"></div>
+    </form>
+  </div>
+  <div id="subtab-manage-complaints" class="subtab-content" style="display:flex;flex-direction:column;gap:12px;">
+    <div class="tab-bar" id="comp-filter-tabs">
+      <button class="tab active" data-filter="all">All</button>
+      <button class="tab" data-filter="Open">Open</button>
+      <button class="tab" data-filter="In Progress">In Progress</button>
+      <button class="tab" data-filter="Resolved">Resolved</button>
+    </div>
+    <div id="manage-complaints-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+  </div>
+</div>
+
+<!-- GATEPASS -->
+<div id="view-gatepass" class="view" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Gatepass</h2>
+  <div class="tab-bar">
+    <button class="tab active" data-subtab="gatepass-apply">Apply</button>
+    <button class="tab" data-subtab="gatepass-history">My Passes</button>
+    <button class="tab role-hostel_rep" data-subtab="gatepass-manage">Manage Requests</button>
+  </div>
+  <div id="subtab-gatepass-apply" class="subtab-content active clay clay--static" style="padding:22px;">
+    <form id="gatepass-form" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div><label class="field-label">Hostel *</label><select id="gp-hostel" class="field field-select" style="width:100%;" required><option value="">Select…</option>${hostelOpts}</select></div>
+        <div><label class="field-label">Destination *</label><input type="text" id="gp-dest" required placeholder="e.g. Lucknow" class="field" style="width:100%;"></div>
+      </div>
+      <div><label class="field-label">Purpose *</label><textarea id="gp-purpose" rows="2" required placeholder="Reason for leaving campus…" class="field" style="width:100%;resize:vertical;"></textarea></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div><label class="field-label">Departure *</label><input type="datetime-local" id="gp-departure" required class="field" style="width:100%;"></div>
+        <div><label class="field-label">Return *</label><input type="datetime-local" id="gp-return" required class="field" style="width:100%;"></div>
+      </div>
+      <div><label class="field-label">Emergency Contact *</label><input type="text" id="gp-emergency" required placeholder="Parent/Guardian phone" class="field" style="width:100%;"></div>
+      <button type="submit" id="gp-submit-btn" class="btn btn--primary" style="align-self:flex-start;">📤 Submit Application</button>
+      <div id="gp-message" class="hidden"></div>
+    </form>
+  </div>
+  <div id="subtab-gatepass-history" class="subtab-content">
+    <div id="gatepass-history-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+  </div>
+  <div id="subtab-gatepass-manage" class="subtab-content role-hostel_rep">
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+      <select id="gp-manage-hostel-filter" class="field field-select" style="width:auto;font-size:0.8rem;"><option value="">All Blocks</option>${hostelOpts}</select>
+      <select id="gp-manage-status-filter" class="field field-select" style="width:auto;font-size:0.8rem;"><option value="">All Status</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option></select>
+      <button onclick="loadGatepasses(true)" class="btn btn--ghost btn--sm">🔄 Refresh</button>
+    </div>
+    <div id="gatepass-manage-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+  </div>
+</div>
+
+<!-- LEAVE -->
+<div id="view-leave" class="view" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Leave Request</h2>
+  <div class="tab-bar">
+    <button class="tab active" data-subtab="leave-apply">Apply for Leave</button>
+    <button class="tab" data-subtab="leave-history">My Requests</button>
+  </div>
+  <div id="subtab-leave-apply" class="subtab-content active clay clay--static" style="padding:22px;">
+    <form id="leave-form" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div><label class="field-label">Hostel *</label><select id="lv-hostel" class="field field-select" style="width:100%;" required><option value="">Select…</option>${hostelOpts}</select></div>
+        <div><label class="field-label">Leave Type *</label>
+          <select id="lv-type" class="field field-select" style="width:100%;">
+            <option value="home">Home Visit</option><option value="medical">Medical</option>
+            <option value="emergency">Emergency</option><option value="event">Event/Fest</option><option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div><label class="field-label">From Date *</label><input type="date" id="lv-from" required class="field" style="width:100%;"></div>
+        <div><label class="field-label">To Date *</label><input type="date" id="lv-to" required class="field" style="width:100%;"></div>
+      </div>
+      <div><label class="field-label">Reason *</label><textarea id="lv-reason" rows="2" required placeholder="Reason for leave…" class="field" style="width:100%;resize:vertical;"></textarea></div>
+      <div><label class="field-label">Parent/Guardian Contact *</label><input type="text" id="lv-contact" required placeholder="Phone number" class="field" style="width:100%;"></div>
+      <button type="submit" id="lv-submit-btn" class="btn btn--primary" style="align-self:flex-start;">📤 Submit Request</button>
+      <div id="lv-message" class="hidden"></div>
+    </form>
+  </div>
+  <div id="subtab-leave-history" class="subtab-content">
+    <div id="leave-history-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+  </div>
+</div>
+
+<!-- LEAVE MANAGE (warden) -->
+<div id="view-leave-manage" class="view role-warden" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Leave Management</h2>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;">
+    <select id="lm-hostel-filter" class="field field-select" style="width:auto;font-size:0.8rem;"><option value="">All Blocks</option>${hostelOpts}</select>
+    <select id="lm-status-filter" class="field field-select" style="width:auto;font-size:0.8rem;"><option value="">All Status</option><option value="pending">Pending</option><option value="approved">Approved</option><option value="rejected">Rejected</option></select>
+    <button onclick="loadLeaveManage()" class="btn btn--ghost btn--sm">🔄 Refresh</button>
+  </div>
+  <div id="leave-manage-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+</div>
+
+<!-- VISITORS (warden) -->
+<div id="view-visitors" class="view role-warden" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Visitor Log</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+    <div class="clay clay--static" style="padding:22px;border-left:4px solid #6366F1;">
+      <p class="section-title" style="margin-bottom:16px;">➕ Log New Visitor</p>
+      <form id="visitor-form" style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label class="field-label">Student</label>
+          <div style="position:relative;">
+            <input type="text" id="visitor-student-search" placeholder="Search student…" class="field" style="width:100%;">
+            <div id="visitor-student-dropdown" class="search-dropdown"></div>
+          </div>
+          <input type="hidden" id="visitor-student-id">
+          <p id="visitor-student-selected" style="font-size:0.75rem;color:#9CA3AF;margin-top:4px;">No student selected</p>
+        </div>
+        <div><label class="field-label">Hostel</label><select id="visitor-hostel" class="field field-select" style="width:100%;"><option value="">Select…</option>${hostelOpts}</select></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><label class="field-label">Visitor Name</label><input type="text" id="visitor-name" placeholder="Full name" class="field" style="width:100%;"></div>
+          <div><label class="field-label">Relation</label>
+            <select id="visitor-relation" class="field field-select" style="width:100%;">
+              <option value="parent">Parent</option><option value="guardian">Guardian</option>
+              <option value="sibling">Sibling</option><option value="relative">Relative</option>
+              <option value="friend">Friend</option><option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><label class="field-label">Contact</label><input type="text" id="visitor-contact" placeholder="Phone" class="field" style="width:100%;"></div>
+          <div><label class="field-label">Purpose</label><input type="text" id="visitor-purpose" placeholder="Visit reason" class="field" style="width:100%;"></div>
+        </div>
+        <button type="submit" id="visitor-submit-btn" class="btn btn--primary btn--full">📝 Log Entry</button>
+        <div id="visitor-message" class="hidden"></div>
+      </form>
+    </div>
+    <div class="clay clay--static" style="padding:22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <p class="section-title">👥 Current Visitors</p>
+        <select id="visitor-hostel-filter" class="field field-select" style="width:auto;font-size:0.75rem;"><option value="">All</option>${hostelOpts}</select>
+      </div>
+      <div id="visitor-list" style="display:flex;flex-direction:column;gap:8px;"><p class="text-muted">Loading…</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- MY FINES -->
+<div id="view-fines" class="view role-student" style="display:flex;flex-direction:column;gap:18px;">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+    <h2 class="page-title">My Fines</h2>
+    <div class="clay clay--sm clay--static" style="padding:12px 18px;text-align:right;">
+      <p style="font-size:0.72rem;font-weight:700;color:#6B7280;text-transform:uppercase;letter-spacing:0.06em;">Total Unpaid</p>
+      <p id="fines-total-unpaid" style="font-size:1.5rem;font-weight:800;color:#D97706;font-family:'Poppins',sans-serif;">₹0.00</p>
+    </div>
+  </div>
+  <div class="tab-bar" id="fines-filter">
+    <button class="tab active" data-filter="all">All</button>
+    <button class="tab" data-filter="unpaid">Unpaid</button>
+    <button class="tab" data-filter="paid">Paid</button>
+    <button class="tab" data-filter="waived">Waived</button>
+  </div>
+  <div id="fines-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading fines…</p></div>
+</div>
+
+<!-- MANAGEMENT (maint_secretary) -->
+<div id="view-management" class="view role-maint_secretary" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Fines & Item Management</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;" id="mgmt-stats">
+    <div class="stat-card stat-red"><div class="stat-label">Unpaid Fines</div><div class="stat-value" id="stat-unpaid">—</div></div>
+    <div class="stat-card stat-green"><div class="stat-label">Paid Fines</div><div class="stat-value" id="stat-paid">—</div></div>
+    <div class="stat-card stat-amber"><div class="stat-label">Items Seized</div><div class="stat-value" id="stat-items">—</div></div>
+    <div class="stat-card stat-indigo"><div class="stat-label">Outstanding (₹)</div><div class="stat-value" id="stat-total" style="font-size:1.2rem;">—</div></div>
+  </div>
+  <div class="tab-bar">
+    <button class="tab active" data-mgmt-tab="issue-fine">Issue Fine</button>
+    <button class="tab" data-mgmt-tab="all-fines">All Fines</button>
+    <button class="tab" data-mgmt-tab="log-item">Log Item</button>
+    <button class="tab" data-mgmt-tab="all-items">All Items</button>
+  </div>
+  <div class="mgmt-tab-content active" id="mgmt-issue-fine">
+    <div class="clay clay--static" style="padding:22px;border-left:4px solid #6366F1;">
+      <form id="issue-fine-form" style="display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <label class="field-label">Student *</label>
+          <div style="position:relative;"><input type="text" id="fine-student-search" placeholder="Search by name or email…" class="field" style="width:100%;"><div id="fine-student-dropdown" class="search-dropdown"></div></div>
+          <input type="hidden" id="fine-student-id"><p id="fine-student-selected" style="font-size:0.75rem;color:#9CA3AF;margin-top:4px;">No student selected</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;">
+          <div><label class="field-label">Amount (₹) *</label><input type="number" id="fine-amount" min="1" step="0.01" required placeholder="500" class="field" style="width:100%;"></div>
+          <div><label class="field-label">Fine Type</label>
+            <select id="fine-type" class="field field-select" style="width:100%;"><option value="general">General</option><option value="late_return">Late Return</option><option value="damage">Property Damage</option><option value="disciplinary">Disciplinary</option><option value="mess">Mess Violation</option></select>
+          </div>
+          <div><label class="field-label">Due Date</label><input type="date" id="fine-due-date" class="field" style="width:100%;"></div>
+        </div>
+        <div><label class="field-label">Reason *</label><textarea id="fine-reason" rows="2" required placeholder="Reason for fine…" class="field" style="width:100%;resize:vertical;"></textarea></div>
+        <button type="submit" id="issue-fine-btn" class="btn btn--primary" style="align-self:flex-start;">💰 Issue Fine</button>
+        <div id="issue-fine-message" class="hidden"></div>
+      </form>
+    </div>
+  </div>
+  <div class="mgmt-tab-content" id="mgmt-all-fines">
+    <div style="margin-bottom:10px;"><select id="admin-fines-filter" class="field field-select" style="width:auto;font-size:0.8rem;"><option value="">All Status</option><option value="unpaid">Unpaid</option><option value="paid">Paid</option><option value="waived">Waived</option></select></div>
+    <div id="all-fines-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+  </div>
+  <div class="mgmt-tab-content" id="mgmt-log-item">
+    <div class="clay clay--static" style="padding:22px;border-left:4px solid #DC2626;">
+      <form id="log-item-form" style="display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <label class="field-label">Student *</label>
+          <div style="position:relative;"><input type="text" id="item-student-search" placeholder="Search student…" class="field" style="width:100%;"><div id="item-student-dropdown" class="search-dropdown"></div></div>
+          <input type="hidden" id="item-student-id"><p id="item-student-selected" style="font-size:0.75rem;color:#9CA3AF;margin-top:4px;">No student selected</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label class="field-label">Room Number *</label><input type="text" id="item-room" required placeholder="e.g. G-204" class="field" style="width:100%;"></div>
+          <div><label class="field-label">Item Name *</label><input type="text" id="item-name" required placeholder="e.g. Electric Kettle" class="field" style="width:100%;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div><label class="field-label">Quantity</label><input type="number" id="item-qty" min="1" value="1" class="field" style="width:100%;"></div>
+          <div><label class="field-label">Description</label><input type="text" id="item-desc" placeholder="Optional notes" class="field" style="width:100%;"></div>
+        </div>
+        <button type="submit" id="log-item-btn" class="btn btn--danger" style="align-self:flex-start;">🚫 Log Seizure</button>
+        <div id="log-item-message" class="hidden"></div>
+      </form>
+    </div>
+  </div>
+  <div class="mgmt-tab-content" id="mgmt-all-items">
+    <div style="margin-bottom:10px;"><select id="admin-items-filter" class="field field-select" style="width:auto;font-size:0.8rem;"><option value="">All Status</option><option value="seized">Seized</option><option value="returned">Returned</option><option value="disposed">Disposed</option></select></div>
+    <div id="all-items-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+  </div>
+</div>
+
+<!-- ROOMS (warden) -->
+<div id="view-rooms" class="view role-warden" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">Room Management</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+    <div class="clay clay--static" style="padding:22px;border-left:4px solid #3B82F6;">
+      <p class="section-title" style="margin-bottom:16px;">🏠 Allocate / Update Room</p>
+      <form id="room-form" style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+          <label class="field-label">Student *</label>
+          <div style="position:relative;"><input type="text" id="room-student-search" placeholder="Search student…" class="field" style="width:100%;"><div id="room-student-dropdown" class="search-dropdown"></div></div>
+          <input type="hidden" id="room-student-id"><p id="room-student-selected" style="font-size:0.75rem;color:#9CA3AF;margin-top:4px;">No student selected</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><label class="field-label">Hostel *</label><select id="room-hostel" class="field field-select" style="width:100%;" required><option value="">Select…</option>${hostelOpts}</select></div>
+          <div><label class="field-label">Room No *</label><input type="text" id="room-number" required placeholder="e.g. 204" class="field" style="width:100%;"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><label class="field-label">Bed No</label><input type="text" id="room-bed" placeholder="e.g. A" class="field" style="width:100%;"></div>
+          <div><label class="field-label">Valid Until</label><input type="date" id="room-valid" class="field" style="width:100%;"></div>
+        </div>
+        <button type="submit" id="room-submit-btn" class="btn btn--primary btn--full">✅ Allocate Room</button>
+        <div id="room-message" class="hidden"></div>
+      </form>
+    </div>
+    <div class="clay clay--static" style="padding:22px;">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+        <p class="section-title">📋 Allocations</p>
+        <select id="room-hostel-filter" class="field field-select" style="width:auto;font-size:0.75rem;"><option value="">All</option>${hostelOpts}</select>
+      </div>
+      <div id="room-list" style="display:flex;flex-direction:column;gap:8px;"><p class="text-muted">Loading…</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="view-admin" class="view role-super_admin" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">🛡️ Admin Panel</h2>
+  <div class="tab-bar">
+    <button class="tab active" data-admin-tab="pending">⏳ Pending (<span id="pending-count">0</span>)</button>
+    <button class="tab" data-admin-tab="users">👥 All Users</button>
+  </div>
+  <div id="admin-tab-pending" class="admin-tab-content active">
+    <div id="pending-users-list" style="display:flex;flex-direction:column;gap:10px;"><p class="text-muted">Loading…</p></div>
+  </div>
+  <div id="admin-tab-users" class="admin-tab-content">
+    <div style="display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;">
+      <input type="text" id="admin-user-search" placeholder="Search users…" class="field" style="flex:1;max-width:280px;">
+      <select id="admin-role-filter" class="field field-select" style="width:auto;">
+        <option value="">All Roles</option>${Object.entries(ROLE_NAMES).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}
+      </select>
+    </div>
+    <div id="all-users-list" style="display:flex;flex-direction:column;gap:8px;"><p class="text-muted">Loading…</p></div>
+  </div>
+</div>
+
+<!-- PROFILE -->
+<div id="view-profile" class="view" style="display:flex;flex-direction:column;gap:18px;">
+  <h2 class="page-title">My Profile</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
+    <div class="clay clay--static" style="padding:22px;">
+      <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;">
+        <div id="profile-avatar-large" style="width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#4F46E5);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:1.5rem;box-shadow:4px 4px 12px rgba(79,70,229,0.3);">A</div>
+        <div>
+          <p id="profile-display-name" style="font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;color:var(--text);">—</p>
+          <p id="profile-display-hostel" class="text-muted" style="margin-top:2px;"></p>
+        </div>
+      </div>
+      <form id="profile-form" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+          <div><label class="field-label">First Name</label><input type="text" id="profile-first-name" class="field" style="width:100%;"></div>
+          <div><label class="field-label">Last Name</label><input type="text" id="profile-last-name" class="field" style="width:100%;"></div>
+        </div>
+        <div><label class="field-label">Email (read-only)</label><input type="email" id="profile-email-display" readonly class="field" style="width:100%;opacity:0.6;cursor:not-allowed;"></div>
+        <div><label class="field-label">Roll Number</label><input type="text" id="profile-roll" placeholder="Your roll number" class="field" style="width:100%;"></div>
+        <div><label class="field-label">Phone</label><input type="text" id="profile-phone" placeholder="Phone number" class="field" style="width:100%;"></div>
+        <div><label class="field-label">Hostel Block</label><select id="profile-hostel" class="field field-select" style="width:100%;"><option value="">Not assigned</option>${hostelOpts}</select></div>
+        <button type="submit" id="profile-save-btn" class="btn btn--primary btn--full">💾 Save Changes</button>
+        <div id="profile-message" class="hidden"></div>
+      </form>
+    </div>
+    <div class="clay clay--static" style="padding:22px;">
+      <p class="section-title" style="margin-bottom:16px;">🔐 Change Password</p>
+      <form id="password-form" style="display:flex;flex-direction:column;gap:12px;">
+        <div><label class="field-label">Current Password</label><input type="password" id="cur-password" class="field" style="width:100%;"></div>
+        <div><label class="field-label">New Password</label><input type="password" id="new-password" class="field" style="width:100%;"></div>
+        <div><label class="field-label">Confirm New Password</label><input type="password" id="confirm-password" class="field" style="width:100%;"></div>
+        <button type="submit" id="password-save-btn" class="btn btn--accent btn--full">🔑 Update Password</button>
+        <div id="password-message" class="hidden"></div>
+      </form>
+      <div style="margin-top:20px;border-radius:var(--r-lg);padding:18px;background:linear-gradient(135deg,#3B82F6,#4F46E5);box-shadow:4px 4px 14px rgba(79,70,229,0.3);">
+        <p style="font-size:0.65rem;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.6);margin-bottom:6px;">About RGIPT</p>
+        <p style="font-size:0.77rem;color:rgba(255,255,255,0.9);line-height:1.6;">Rajiv Gandhi Institute of Petroleum Technology — Institution of National Importance, Jais, Amethi, UP. Co-promoted by ONGC, IOCL, OIL, GAIL, BPCL & HPCL.</p>
+      </div>
+    </div>
+  </div>
+</div>
+  `;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════════════════════════════
+document.addEventListener('DOMContentLoaded', ()=>{
+  // Inject views
+  const vc = document.getElementById('views-container');
+  const vcm = document.getElementById('views-container-mobile');
+  if(vc) vc.innerHTML = getViewsHTML();
+  if(vcm) vcm.innerHTML = getViewsHTML();
+
+  // Dark mode
+  const saved = localStorage.getItem('hostelhub_darkmode');
+  if(saved==='true'||(saved===null&&window.matchMedia('(prefers-color-scheme: dark)').matches)){
+    document.documentElement.classList.add('dark');
+  }
+  updateDarkIcons();
+
+  setupListeners();
+
+  // Restore session
+  const savedToken = sessionStorage.getItem('hostelhub_token');
+  const savedUser = sessionStorage.getItem('hostelhub_user');
+  if(savedToken && savedUser){
+    authToken = savedToken;
+    try { demoUser = JSON.parse(savedUser); showApp(); } catch(e){ sessionStorage.clear(); }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// EVENT LISTENERS
+// ═══════════════════════════════════════════════════════════════════
+function updateDarkIcons(){
+  const isDark = document.documentElement.classList.contains('dark');
+  ['darkModeIcon','darkModeIcon-mobile'].forEach(id=>{
+    const el = document.getElementById(id); if(el) el.textContent = isDark ? '☀️' : '🌙';
+  });
+}
+
+function setupListeners(){
+  // Dark mode
+  ['darkModeToggle','darkModeToggle-mobile'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('click',()=>{
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('hostelhub_darkmode', document.documentElement.classList.contains('dark'));
+      updateDarkIcons();
+    });
+  });
+
+  // Auth card links
+  document.addEventListener('click', e=>{
+    const link = e.target.closest('.auth-link');
+    if(link){ e.preventDefault(); showAuthCard(link.dataset.target); return; }
+
+    // Nav links (sidebar + mobile)
+    const nav = e.target.closest('a[data-view]');
+    if(nav){ e.preventDefault();
+      if(nav.id==='logout-button'||nav.closest('#logout-button')) return;
+      showView(nav.dataset.view);
+      // close profile dropdown
+      const pm=document.getElementById('profile-menu'); if(pm) pm.classList.remove('open');
+      return;
+    }
+
+    // Mobile nav
+    const mnav = e.target.closest('.nav-link-mobile[data-view]');
+    if(mnav){ e.preventDefault(); showView(mnav.dataset.view); return; }
+  });
+
+  // Logout
+  document.addEventListener('click', e=>{
+    const logoutBtn = e.target.closest('#logout-button');
+    if(logoutBtn){ e.preventDefault(); logout(); return; }
+  });
+
+  // Profile menu button (desktop)
+  const pmb = document.getElementById('profile-menu-button');
+  if(pmb) pmb.addEventListener('click', e=>{ e.stopPropagation(); document.getElementById('profile-menu').classList.toggle('open'); });
+  document.addEventListener('click', e=>{
+    if(!e.target.closest('#profile-menu') && !e.target.closest('#profile-menu-button')){
+      const pm=document.getElementById('profile-menu'); if(pm) pm.classList.remove('open');
+    }
+  });
+
+  // Mobile sidebar toggle
+  const mmb = document.getElementById('mobile-menu-btn');
+  if(mmb) mmb.addEventListener('click',()=>{ const sb=document.getElementById('sidebar'); if(sb) sb.classList.toggle('open'); });
+
+  // LOGIN
+  const loginForm = document.getElementById('login-form');
+  if(loginForm) loginForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('login-btn');
+    setLoading(btn, true);
+    try {
+      const data = await Api.login(
+        document.getElementById('login-email').value.trim(),
+        document.getElementById('login-password').value
+      );
+      authToken = data.access_token;
+      demoUser = data.user;
+      sessionStorage.setItem('hostelhub_token', authToken);
+      sessionStorage.setItem('hostelhub_user', JSON.stringify(demoUser));
+      showApp();
+    } catch(err) {
+      showMsg(document.getElementById('login-message'), err.message||'Login failed. Please try again.', false);
+    } finally { setLoading(btn, false, 'Sign In'); }
+  });
+
+  // SEND OTP
+  const sendOtpBtn = document.getElementById('send-otp-btn');
+  if(sendOtpBtn) sendOtpBtn.addEventListener('click', async ()=>{
+    const email = document.getElementById('reg-email').value.trim();
+    if(!email){ showMsg(document.getElementById('send-otp-message'),'Enter your college email.',false); return; }
+    setLoading(sendOtpBtn, true);
+    try {
+      await Api.sendOtp(email);
+      document.getElementById('otp-email-display').textContent = email;
+      document.getElementById('reg-step-email').classList.add('hidden');
+      document.getElementById('reg-step-otp').style.display='flex';
+      document.getElementById('reg-step-otp').style.flexDirection='column';
+      document.getElementById('reg-step-otp').classList.remove('hidden');
+    } catch(err){ showMsg(document.getElementById('send-otp-message'), err.message, false); }
+    finally { setLoading(sendOtpBtn, false, 'Send OTP'); }
+  });
+
+  // VERIFY OTP
+  const verifyOtpBtn = document.getElementById('verify-otp-btn');
+  if(verifyOtpBtn) verifyOtpBtn.addEventListener('click', async ()=>{
+    const email = document.getElementById('reg-email').value.trim();
+    const otp = document.getElementById('otp-input').value.trim();
+    setLoading(verifyOtpBtn, true);
+    try {
+      await Api.verifyOtp(email, otp);
+      document.getElementById('reg-step-otp').style.display='none';
+      const detailsEl = document.getElementById('reg-step-details');
+      detailsEl.style.display='flex'; detailsEl.style.flexDirection='column';
+      detailsEl.classList.remove('hidden');
+    } catch(err){ showMsg(document.getElementById('verify-otp-message'), err.message, false); }
+    finally { setLoading(verifyOtpBtn, false, 'Verify OTP'); }
+  });
+
+  // REGISTER
+  const regForm = document.getElementById('register-form');
+  if(regForm) regForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('register-btn');
+    setLoading(btn, true);
+    try {
+      const data = await Api.register({
+        email: document.getElementById('reg-email').value.trim(),
+        first_name: document.getElementById('reg-first').value.trim(),
+        last_name: document.getElementById('reg-last').value.trim(),
+        roll_number: document.getElementById('reg-roll').value.trim(),
+        hostel: document.getElementById('reg-hostel').value,
+        role: document.getElementById('reg-role').value,
+        password: document.getElementById('reg-password').value,
+      });
+      document.getElementById('pending-name').textContent = data.user?.first_name || 'User';
+      document.getElementById('pending-email').textContent = data.user?.email || '';
+      showAuthCard('auth-card-pending');
+    } catch(err){ showMsg(document.getElementById('register-message'), err.message, false); }
+    finally { setLoading(btn, false, 'Create Account'); }
+  });
+
+  // FORGOT PASSWORD
+  const forgotForm = document.getElementById('forgot-form');
+  if(forgotForm) forgotForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    try {
+      await Api.forgotPassword(document.getElementById('forgot-email').value.trim());
+      showMsg(document.getElementById('forgot-message'), 'Reset link sent! Check your email.', true);
+    } catch(err){ showMsg(document.getElementById('forgot-message'), err.message, false); }
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// AUTH FLOW
+// ═══════════════════════════════════════════════════════════════════
+function showAuthCard(id){
+  document.querySelectorAll('.auth-card').forEach(c=>c.classList.remove('active'));
+  const target = document.getElementById(id);
+  if(target) target.classList.add('active');
+}
+
+function showApp(){
+  document.getElementById('auth-container').style.display='none';
+  const app = document.getElementById('app-container');
+  app.style.display='block';
+  app.style.minHeight='100vh';
+
+  const role = demoUser?.role || 'student';
+  document.body.setAttribute('data-role', role);
+  updateUserUI();
+  setupAppListeners();
+  showView('dashboard');
+}
+
+function logout(){
+  authToken = null; demoUser = null;
+  sessionStorage.clear();
+  document.body.removeAttribute('data-role');
+  document.getElementById('app-container').style.display='none';
+  document.getElementById('auth-container').style.display='flex';
+  showAuthCard('auth-card-login');
+}
+
+function updateUserUI(){
+  if(!demoUser) return;
+  const name = `${demoUser.first_name||''} ${demoUser.last_name||''}`.trim() || demoUser.email;
+  const initials = (demoUser.first_name?.[0]||'') + (demoUser.last_name?.[0]||'') || demoUser.email?.[0]?.toUpperCase() || 'U';
+  const hostelName = HOSTEL_NAME(demoUser.hostel);
+  const roleName = ROLE_NAMES[demoUser.role] || demoUser.role;
+
+  ['profile-name','welcome-username'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=name; });
+  const pe=document.getElementById('profile-email'); if(pe) pe.textContent=demoUser.email||'';
+  const tb=document.getElementById('topbar-title'); if(tb) tb.textContent='Dashboard';
+  ['user-avatar-text','user-avatar-mobile'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent=initials; });
+  const prt = document.getElementById('profile-role-tag');
+  if(prt){ prt.className='badge'; const map={student:'badge--blue',hostel_rep:'badge--indigo',mess_secretary:'badge--green',maint_secretary:'badge--yellow',warden:'badge--purple',head_warden:'badge--pink',super_admin:'badge--red'}; prt.classList.add(map[demoUser.role]||'badge--gray'); prt.textContent=roleName; }
+
+  // Profile form prefill
+  const setVal = (id,v)=>{ const el=document.getElementById(id); if(el) el.value=v||''; };
+  setVal('profile-first-name', demoUser.first_name);
+  setVal('profile-last-name', demoUser.last_name);
+  setVal('profile-email-display', demoUser.email);
+  setVal('profile-roll', demoUser.roll_number);
+  setVal('profile-phone', demoUser.phone);
+  setVal('profile-hostel', demoUser.hostel||'');
+  const pdn=document.getElementById('profile-display-name'); if(pdn) pdn.textContent=name;
+  const pdh=document.getElementById('profile-display-hostel'); if(pdh) pdh.textContent=hostelName;
+  const pal=document.getElementById('profile-avatar-large'); if(pal) pal.textContent=initials;
+
+  // Show post notice button for officials
+  if(isAdmin(demoUser.role)){
+    document.querySelectorAll('#post-notice-btn').forEach(b=>b.classList.remove('hidden'));
+  }
+  // Show menu edit for mess_secretary+
+  if(['mess_secretary','warden','head_warden','super_admin'].includes(demoUser.role)){
+    const mes=document.getElementById('menu-edit-section'); if(mes) mes.classList.remove('hidden');
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// VIEW MANAGEMENT
+// ═══════════════════════════════════════════════════════════════════
+function showView(viewId){
+  if(!viewId) return;
+  currentView = viewId;
+  // Both desktop and mobile containers
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll(`#view-${viewId}`).forEach(v=>v.classList.add('active'));
+  // Nav active state
+  document.querySelectorAll('.nav-link[data-view],.nav-link-mobile[data-view]').forEach(l=>{
+    l.classList.toggle('active', l.dataset.view===viewId);
+  });
+  // Topbar title
+  const titles = {dashboard:'Dashboard',noticeboard:'Notice Board',explore:'Mess Menu',submit:'Complaints',gatepass:'Gatepass',leave:'Leave Request','leave-manage':'Leave Management',visitors:'Visitor Log',fines:'My Fines',management:'Fines & Items',rooms:'Room Management',admin:'Admin Panel',profile:'My Profile'};
+  const tb = document.getElementById('topbar-title'); if(tb) tb.textContent=titles[viewId]||viewId;
+
+  // Load data
+  switch(viewId){
+    case 'dashboard': loadDashboard(); break;
+    case 'noticeboard': loadNotices(); break;
+    case 'explore': initMenu(); break;
+    case 'submit': loadComplaints(); break;
+    case 'gatepass': loadGatepasses(); break;
+    case 'leave': loadLeave(); break;
+    case 'leave-manage': loadLeaveManage(); break;
+    case 'visitors': loadVisitors(); break;
+    case 'fines': loadFines(); break;
+    case 'management': loadManagement(); break;
+    case 'rooms': loadRooms(); break;
+    case 'admin': loadAdmin(); break;
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// APP-LEVEL LISTENERS (after inject)
+// ═══════════════════════════════════════════════════════════════════
+function setupAppListeners(){
+  // Generic tab system
+  document.addEventListener('click', e=>{
+    // Sub-tabs
+    const tab = e.target.closest('.tab[data-subtab]');
+    if(tab){
+      const group = tab.closest('.tab-bar') || tab.parentElement;
+      group.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      tab.classList.add('active');
+      const subtabId = 'subtab-' + tab.dataset.subtab;
+      const view = tab.closest('.view');
+      if(view) view.querySelectorAll('.subtab-content').forEach(c=>c.classList.remove('active'));
+      document.querySelectorAll(`#${subtabId}`).forEach(c=>c.classList.add('active'));
+      // Load data for subtabs
+      if(tab.dataset.subtab==='gatepass-manage') loadGatepasses(true);
+      if(tab.dataset.subtab==='gatepass-history') loadGatepasses(false);
+      if(tab.dataset.subtab==='leave-history') loadLeaveHistory();
+      if(tab.dataset.subtab==='manage-complaints') loadManageComplaints();
+      return;
+    }
+    // Mgmt tabs
+    const mt = e.target.closest('[data-mgmt-tab]');
+    if(mt){
+      const view = mt.closest('.view');
+      if(view){
+        view.querySelectorAll('[data-mgmt-tab]').forEach(t=>t.classList.remove('active'));
+        mt.classList.add('active');
+        view.querySelectorAll('.mgmt-tab-content').forEach(c=>c.classList.remove('active'));
+        const tgt = document.getElementById('mgmt-'+mt.dataset.mgmtTab);
+        if(tgt) tgt.classList.add('active');
+        if(mt.dataset.mgmtTab==='all-fines') loadAllFines();
+        if(mt.dataset.mgmtTab==='all-items') loadAllItems();
+      }
+      return;
+    }
+    // Admin tabs
+    const at = e.target.closest('[data-admin-tab]');
+    if(at){
+      document.querySelectorAll('[data-admin-tab]').forEach(t=>t.classList.remove('active'));
+      at.classList.add('active');
+      document.querySelectorAll('.admin-tab-content').forEach(c=>c.classList.remove('active'));
+      const tgt = document.getElementById('admin-tab-'+at.dataset.adminTab);
+      if(tgt) tgt.classList.add('active');
+      if(at.dataset.adminTab==='users') loadAllUsers();
+      return;
+    }
+    // Filter tabs
+    const ft = e.target.closest('.tab[data-filter]');
+    if(ft){
+      ft.parentElement.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      ft.classList.add('active');
+      return;
+    }
+  });
+
+  // COMPLAINT FORM
+  const compForm = document.getElementById('complaint-form');
+  if(compForm) compForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('comp-submit-btn');
+    setLoading(btn, true);
+    try {
+      await Api.postComplaint({ category:document.getElementById('comp-cat').value, location:document.getElementById('comp-location').value, description:document.getElementById('comp-desc').value });
+      showMsg(document.getElementById('comp-message'),'Complaint submitted!',true);
+      compForm.reset();
+    } catch(err){ showMsg(document.getElementById('comp-message'),err.message,false); }
+    finally { setLoading(btn,false,'📤 Submit Complaint'); }
+  });
+
+  // FEEDBACK FORM
+  const fbForm = document.getElementById('feedback-form');
+  if(fbForm) fbForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('fb-submit-btn');
+    setLoading(btn, true);
+    try {
+      await Api.postFeedback({ area:document.getElementById('fb-area').value, rating:parseInt(document.getElementById('fb-rating').value), comments:document.getElementById('fb-comments').value });
+      showMsg(document.getElementById('fb-message'),'Feedback submitted! Thank you.',true);
+      fbForm.reset();
+    } catch(err){ showMsg(document.getElementById('fb-message'),err.message,false); }
+    finally { setLoading(btn,false,'📤 Submit Feedback'); }
+  });
+
+  // GATEPASS FORM
+  const gpForm = document.getElementById('gatepass-form');
+  if(gpForm) gpForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('gp-submit-btn');
+    setLoading(btn, true);
+    try {
+      await Api.createGatepass({ hostel:document.getElementById('gp-hostel').value, destination:document.getElementById('gp-dest').value, purpose:document.getElementById('gp-purpose').value, departure_time:document.getElementById('gp-departure').value, return_time:document.getElementById('gp-return').value, emergency_contact:document.getElementById('gp-emergency').value });
+      showMsg(document.getElementById('gp-message'),'Gatepass application submitted!',true);
+      gpForm.reset();
+    } catch(err){ showMsg(document.getElementById('gp-message'),err.message,false); }
+    finally { setLoading(btn,false,'📤 Submit Application'); }
+  });
+
+  // LEAVE FORM
+  const lvForm = document.getElementById('leave-form');
+  if(lvForm) lvForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('lv-submit-btn');
+    setLoading(btn, true);
+    try {
+      await Api.createLeave({ hostel:document.getElementById('lv-hostel').value, leave_type:document.getElementById('lv-type').value, from_date:document.getElementById('lv-from').value, to_date:document.getElementById('lv-to').value, reason:document.getElementById('lv-reason').value, parent_contact:document.getElementById('lv-contact').value });
+      showMsg(document.getElementById('lv-message'),'Leave request submitted!',true);
+      lvForm.reset();
+    } catch(err){ showMsg(document.getElementById('lv-message'),err.message,false); }
+    finally { setLoading(btn,false,'📤 Submit Request'); }
+  });
+
+  // VISITOR FORM
+  const visForm = document.getElementById('visitor-form');
+  if(visForm) visForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('visitor-submit-btn');
+    setLoading(btn, true);
+    try {
+      await Api.logVisitor({ student_id:document.getElementById('visitor-student-id').value, hostel:document.getElementById('visitor-hostel').value, visitor_name:document.getElementById('visitor-name').value, relation:document.getElementById('visitor-relation').value, contact:document.getElementById('visitor-contact').value, purpose:document.getElementById('visitor-purpose').value });
+      showMsg(document.getElementById('visitor-message'),'Visitor logged!',true);
+      visForm.reset(); document.getElementById('visitor-student-selected').textContent='No student selected'; document.getElementById('visitor-student-id').value='';
+      loadVisitors();
+    } catch(err){ showMsg(document.getElementById('visitor-message'),err.message,false); }
+    finally { setLoading(btn,false,'📝 Log Entry'); }
+  });
+
+  // ROOM FORM
+  const roomForm = document.getElementById('room-form');
+  if(roomForm) roomForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('room-submit-btn');
+    setLoading(btn, true);
+    try {
+      await Api.allocateRoom({ student_id:document.getElementById('room-student-id').value, hostel:document.getElementById('room-hostel').value, room_number:document.getElementById('room-number').value, bed_number:document.getElementById('room-bed').value, valid_until:document.getElementById('room-valid').value });
+      showMsg(document.getElementById('room-message'),'Room allocated!',true);
+      roomForm.reset(); document.getElementById('room-student-selected').textContent='No student selected';
+      loadRooms();
+    } catch(err){ showMsg(document.getElementById('room-message'),err.message,false); }
+    finally { setLoading(btn,false,'✅ Allocate Room'); }
+  });
+
+  // ISSUE FINE FORM
+  const fineForm = document.getElementById('issue-fine-form');
+  if(fineForm) fineForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('issue-fine-btn');
+    setLoading(btn, true);
+    try {
+      await Api.createFine({ student_id:document.getElementById('fine-student-id').value, amount:parseFloat(document.getElementById('fine-amount').value), fine_type:document.getElementById('fine-type').value, reason:document.getElementById('fine-reason').value, due_date:document.getElementById('fine-due-date').value });
+      showMsg(document.getElementById('issue-fine-message'),'Fine issued!',true);
+      fineForm.reset(); document.getElementById('fine-student-selected').textContent='No student selected';
+    } catch(err){ showMsg(document.getElementById('issue-fine-message'),err.message,false); }
+    finally { setLoading(btn,false,'💰 Issue Fine'); }
+  });
+
+  // LOG ITEM FORM
+  const itemForm = document.getElementById('log-item-form');
+  if(itemForm) itemForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('log-item-btn');
+    setLoading(btn, true);
+    try {
+      await Api.logItem({ student_id:document.getElementById('item-student-id').value, room_number:document.getElementById('item-room').value, item_name:document.getElementById('item-name').value, quantity:parseInt(document.getElementById('item-qty').value)||1, description:document.getElementById('item-desc').value });
+      showMsg(document.getElementById('log-item-message'),'Item logged!',true);
+      itemForm.reset(); document.getElementById('item-student-selected').textContent='No student selected';
+    } catch(err){ showMsg(document.getElementById('log-item-message'),err.message,false); }
+    finally { setLoading(btn,false,'🚫 Log Seizure'); }
+  });
+
+  // PROFILE FORM
+  const profileForm = document.getElementById('profile-form');
+  if(profileForm) profileForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const btn = document.getElementById('profile-save-btn');
+    setLoading(btn, true);
+    try {
+      const updated = await Api.updateProfile({ first_name:document.getElementById('profile-first-name').value, last_name:document.getElementById('profile-last-name').value, roll_number:document.getElementById('profile-roll').value, phone:document.getElementById('profile-phone').value, hostel:document.getElementById('profile-hostel').value });
+      demoUser = {...demoUser, ...updated.user};
+      sessionStorage.setItem('hostelhub_user', JSON.stringify(demoUser));
+      showMsg(document.getElementById('profile-message'),'Profile updated!',true);
+      updateUserUI();
+    } catch(err){ showMsg(document.getElementById('profile-message'),err.message,false); }
+    finally { setLoading(btn,false,'💾 Save Changes'); }
+  });
+
+  // PASSWORD FORM
+  const pwForm = document.getElementById('password-form');
+  if(pwForm) pwForm.addEventListener('submit', async e=>{
+    e.preventDefault();
+    const np=document.getElementById('new-password').value;
+    const cp=document.getElementById('confirm-password').value;
+    if(np!==cp){ showMsg(document.getElementById('password-message'),'Passwords do not match.',false); return; }
+    const btn = document.getElementById('password-save-btn');
+    setLoading(btn, true);
+    try {
+      await Api.updatePassword(document.getElementById('cur-password').value, np);
+      showMsg(document.getElementById('password-message'),'Password updated!',true);
+      pwForm.reset();
+    } catch(err){ showMsg(document.getElementById('password-message'),err.message,false); }
+    finally { setLoading(btn,false,'🔑 Update Password'); }
+  });
+
+  // NOTICE BOARD
+  document.getElementById('post-notice-btn')?.addEventListener('click',()=>{
+    document.getElementById('post-notice-form-card').classList.toggle('hidden');
+    setupNoticeBoardSelect();
+  });
+  document.getElementById('submit-notice-btn')?.addEventListener('click', postNotice);
+  document.getElementById('notice-hostel-filter')?.addEventListener('change',()=>loadNotices());
+  setupFileUpload();
+  setupSearchDropdown('fine-student-search','fine-student-dropdown','fine-student-id','fine-student-selected');
+  setupSearchDropdown('item-student-search','item-student-dropdown','item-student-id','item-student-selected');
+  setupSearchDropdown('visitor-student-search','visitor-student-dropdown','visitor-student-id','visitor-student-selected');
+  setupSearchDropdown('room-student-search','room-student-dropdown','room-student-id','room-student-selected');
+
+  // Notice board filters
+  document.getElementById('admin-fines-filter')?.addEventListener('change',()=>loadAllFines());
+  document.getElementById('admin-items-filter')?.addEventListener('change',()=>loadAllItems());
+  document.getElementById('gp-manage-hostel-filter')?.addEventListener('change',()=>loadGatepasses(true));
+  document.getElementById('gp-manage-status-filter')?.addEventListener('change',()=>loadGatepasses(true));
+  document.getElementById('lm-hostel-filter')?.addEventListener('change',()=>loadLeaveManage());
+  document.getElementById('lm-status-filter')?.addEventListener('change',()=>loadLeaveManage());
+  document.getElementById('visitor-hostel-filter')?.addEventListener('change',()=>loadVisitors());
+  document.getElementById('room-hostel-filter')?.addEventListener('change',()=>loadRooms());
+  document.getElementById('admin-user-search')?.addEventListener('input',()=>filterUsers());
+  document.getElementById('admin-role-filter')?.addEventListener('change',()=>filterUsers());
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SEARCH DROPDOWN
+// ═══════════════════════════════════════════════════════════════════
+function setupSearchDropdown(inputId, dropdownId, hiddenId, selectedId){
+  const input = document.getElementById(inputId);
+  const dropdown = document.getElementById(dropdownId);
+  if(!input||!dropdown) return;
+  let timeout;
+  input.addEventListener('input', ()=>{
+    clearTimeout(timeout);
+    const q = input.value.trim();
+    if(q.length<2){ dropdown.classList.remove('open'); return; }
+    timeout = setTimeout(async()=>{
+      try {
+        const users = await Api.searchUsers(q);
+        dropdown.innerHTML = users.length
+          ? users.map(u=>`<div class="search-option" data-id="${u.id}" data-name="${u.first_name} ${u.last_name}" data-email="${u.email}">${u.first_name} ${u.last_name} <span style="color:#9CA3AF;font-size:0.7rem;">${u.email}</span></div>`).join('')
+          : '<div class="search-option" style="color:#9CA3AF;cursor:default;">No results</div>';
+        dropdown.classList.add('open');
+        dropdown.querySelectorAll('.search-option[data-id]').forEach(opt=>{
+          opt.addEventListener('click',()=>{
+            document.getElementById(hiddenId).value = opt.dataset.id;
+            document.getElementById(selectedId).textContent = `✓ ${opt.dataset.name} (${opt.dataset.email})`;
+            document.getElementById(selectedId).style.color = '#3B82F6';
+            input.value = opt.dataset.name;
+            dropdown.classList.remove('open');
+          });
+        });
+      } catch{}
+    }, 300);
+  });
+  document.addEventListener('click',e=>{ if(!input.contains(e.target)&&!dropdown.contains(e.target)) dropdown.classList.remove('open'); });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NOTICE BOARD
+// ═══════════════════════════════════════════════════════════════════
+function setupNoticeBoardSelect(){
+  if(!demoUser) return;
+  const isCrossBlock = ['warden','head_warden','super_admin'].includes(demoUser.role);
+  const selector = document.getElementById('notice-block-selector');
+  if(!selector) return;
+  if(!isCrossBlock){
+    // Restrict to own hostel
+    selector.querySelectorAll('.notice-block-option').forEach(opt=>{
+      if(opt.dataset.hostel!==demoUser.hostel) opt.style.display='none';
+      else { const cb=opt.querySelector('input'); if(cb) cb.checked=true; }
+    });
+    const allOpt = selector.querySelector('input[value="all"]');
+    if(allOpt){ allOpt.disabled=true; allOpt.closest('label').style.opacity='0.4'; }
+  }
+}
+
+async function postNotice(){
+  const title = document.getElementById('notice-title').value.trim();
+  const body  = document.getElementById('notice-body').value.trim();
+  if(!title||!body){ showMsg(document.getElementById('notice-post-message'),'Title and message required.',false); return; }
+  const targetBlocks = [...document.querySelectorAll('input[name="target_block"]:checked')].map(c=>c.value);
+  if(targetBlocks.length===0){ showMsg(document.getElementById('notice-post-message'),'Select at least one target hostel.',false); return; }
+  const btn = document.getElementById('submit-notice-btn');
+  setLoading(btn, true);
+  try {
+    await Api.createNoticePost({ title, body, category:document.getElementById('notice-category').value, target_blocks:targetBlocks, tag:document.getElementById('notice-tag').value, attachments:attachmentQueue.map(a=>({name:a.name,type:a.type,data:a.data})) });
+    showMsg(document.getElementById('notice-post-message'),'Notice posted!',true);
+    document.getElementById('notice-title').value='';
+    document.getElementById('notice-body').value='';
+    attachmentQueue=[];
+    document.getElementById('notice-attachments-list').innerHTML='';
+    loadNotices();
+  } catch(err){ showMsg(document.getElementById('notice-post-message'),err.message,false); }
+  finally { setLoading(btn,false,'📤 Post Notice'); }
+}
+
+function setupFileUpload(){
+  const fi = document.getElementById('notice-file-input');
+  const dz = document.getElementById('notice-drop-zone');
+  if(!fi||!dz) return;
+  fi.addEventListener('change',()=>{ Array.from(fi.files).forEach(handleAttachment); fi.value=''; });
+  dz.addEventListener('dragover',e=>{ e.preventDefault(); dz.classList.add('dragover'); });
+  dz.addEventListener('dragleave',()=>dz.classList.remove('dragover'));
+  dz.addEventListener('drop',e=>{ e.preventDefault(); dz.classList.remove('dragover'); Array.from(e.dataTransfer.files).forEach(handleAttachment); });
+}
+
+function handleAttachment(file){
+  if(file.size>5*1024*1024){ alert('File too large (max 5MB)'); return; }
+  const reader = new FileReader();
+  reader.onload=ev=>{
+    const attachment = { name:file.name, type:file.type, data:ev.target.result };
+    attachmentQueue.push(attachment);
+    const list = document.getElementById('notice-attachments-list');
+    if(list){
+      const chip = document.createElement('div');
+      chip.style.cssText='display:inline-flex;align-items:center;gap:6px;background:var(--primary-light);border:1px solid var(--border-strong);border-radius:8px;padding:4px 10px;font-size:0.75rem;font-weight:600;cursor:pointer;color:#2563EB;';
+      chip.innerHTML=`📎 ${file.name} <span style="color:#DC2626;cursor:pointer;" onclick="this.parentElement.remove();attachmentQueue=attachmentQueue.filter(a=>a.name!=='${file.name}')">✕</span>`;
+      chip.addEventListener('click',()=>openAttachmentModal(file.name,file.type,ev.target.result));
+      list.appendChild(chip);
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DATA LOADERS
+// ═══════════════════════════════════════════════════════════════════
+async function loadDashboard(){
+  try {
+    const announcements = await Api.getAnnouncements();
+    renderHomeAnnouncements(announcements);
+  } catch{ document.getElementById('home-announcements').innerHTML='<p class="text-muted">Unable to load notices.</p>'; }
+
+  try {
+    const days=['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    const today = days[new Date().getDay()];
+    const menu = await Api.getMenu(today);
+    renderHomeMenu(menu);
+  } catch{ document.getElementById('home-menu').innerHTML='<p class="text-muted">Unable to load menu.</p>'; }
+
+  try {
+    const complaints = await Api.getComplaints();
+    const open = complaints.filter(c=>c.status==='Open'||c.status==='In Progress');
+    document.querySelectorAll('#dash-complaints').forEach(el=>el.textContent=open.length);
+    renderHomeComplaints(complaints.slice(0,3));
+    renderComplaintChart(complaints);
+  } catch{ document.querySelectorAll('#dash-complaints').forEach(el=>el.textContent='N/A'); }
+
+  try {
+    const summary = await Api.getMyFineSummary();
+    const total = summary.total_unpaid||0;
+    document.querySelectorAll('#dash-fines').forEach(el=>el.textContent=`₹${total.toFixed(0)}`);
+    if(total>0){
+      document.querySelectorAll('#fine-alert').forEach(el=>el.classList.remove('hidden'));
+      document.querySelectorAll('#unpaid-fine-badge').forEach(el=>el.textContent=`₹${total.toFixed(0)}`);
+    }
+  } catch{}
+
+  try {
+    const gp = await Api.getGatepasses(null, null);
+    const myGp = gp.filter(g=>g.student_id===demoUser?.id);
+    const last = myGp[0];
+    document.querySelectorAll('#dash-gatepass').forEach(el=>el.textContent=last?last.status.toUpperCase():'None');
+  } catch{ document.querySelectorAll('#dash-gatepass').forEach(el=>el.textContent='N/A'); }
+}
+
+function renderHomeAnnouncements(items){
+  const container = document.getElementById('home-announcements');
+  if(!container) return;
+  if(!items||!items.length){ container.innerHTML='<p class="text-muted">No notices yet.</p>'; return; }
+  container.innerHTML = items.slice(0,3).map(a=>`
+    <div style="padding:12px;border-radius:12px;background:var(--surface-2);border:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+        <span style="font-weight:700;font-size:0.82rem;color:var(--text-body);">${a.title}</span>
+        ${a.tag?`<span class="tag-${a.tag}">${a.tag.toUpperCase()}</span>`:''}
+      </div>
+      <p style="font-size:0.77rem;color:var(--text-muted);line-height:1.5;">${(a.body||'').slice(0,120)}${(a.body||'').length>120?'…':''}</p>
+      <p style="font-size:0.68rem;color:#9CA3AF;margin-top:4px;">${fmtDate(a.created_at)}</p>
+    </div>
+  `).join('');
+}
+
+function renderHomeMenu(menu){
+  const container = document.getElementById('home-menu');
+  if(!container) return;
+  if(!menu){ container.innerHTML='<p class="text-muted">No menu for today.</p>'; return; }
+  const meals = ['breakfast','lunch','snacks','dinner'];
+  container.innerHTML = meals.map(m=>`
+    <div style="display:flex;gap:8px;align-items:flex-start;">
+      <span style="font-size:0.7rem;font-weight:800;text-transform:uppercase;color:#3B82F6;width:64px;flex-shrink:0;padding-top:2px;">${m}</span>
+      <span style="font-size:0.8rem;color:var(--text-body);">${(menu[m]||[]).join(', ')||'—'}</span>
+    </div>
+  `).join('');
+}
+
+function renderHomeComplaints(complaints){
+  const container = document.getElementById('home-complaints');
+  if(!container) return;
+  if(!complaints.length){ container.innerHTML='<p class="text-muted">No complaints yet.</p>'; return; }
+  container.innerHTML = complaints.map(c=>`
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;padding:10px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);">
+      <div><p style="font-weight:600;font-size:0.82rem;color:var(--text-body);">${c.category}</p><p style="font-size:0.75rem;color:var(--text-muted);">${c.location}</p></div>
+      ${getStatusBadge(c.status)}
+    </div>
+  `).join('');
+  document.querySelectorAll('#dash-notices').forEach(el=>el.textContent=complaints.length);
+}
+
+function renderComplaintChart(complaints){
+  const ctx = document.getElementById('complaints-chart');
+  if(!ctx) return;
+  if(complaintChartInstance) complaintChartInstance.destroy();
+  const cats = {}; complaints.forEach(c=>{ cats[c.category]=(cats[c.category]||0)+1; });
+  const labels = Object.keys(cats); const data = Object.values(cats);
+  const colors = ['#3B82F6','#6366F1','#22C55E','#F59E0B','#EF4444','#EC4899','#14B8A6','#8B5CF6'];
+  complaintChartInstance = new Chart(ctx,{
+    type:'doughnut',
+    data:{ labels, datasets:[{ data, backgroundColor:colors, borderWidth:2, borderColor:'#fff' }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom', labels:{ font:{size:11, family:'Montserrat'}, boxWidth:10 } } } }
+  });
+}
+
+async function loadNotices(){
+  const filter = document.getElementById('notice-hostel-filter')?.value||'';
+  const container = document.getElementById('notices-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const posts = await Api.getNoticePosts(filter);
+    if(!posts.length){ container.innerHTML='<p class="text-muted">No notices posted yet.</p>'; return; }
+    container.innerHTML = posts.map(p=>`
+      <div class="clay clay--static" style="padding:18px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div style="flex:1;min-width:0;">
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+              <span style="font-weight:700;font-size:0.9rem;color:var(--text-body);">${p.title}</span>
+              ${p.tag?`<span class="tag-${p.tag}">${p.tag.toUpperCase()}</span>`:''}
+              <span class="badge badge--gray">${p.category||'general'}</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text-muted);line-height:1.6;margin-bottom:8px;">${p.body||''}</p>
+            ${(p.attachments||[]).map(a=>`
+              <button onclick="openAttachmentModal('${a.name}','${a.type}','${a.data}')" style="display:inline-flex;align-items:center;gap:5px;background:var(--primary-light);border:1px solid var(--border-strong);border-radius:8px;padding:3px 10px;font-size:0.72rem;font-weight:600;color:#2563EB;cursor:pointer;margin-right:4px;margin-bottom:4px;">📎 ${a.name}</button>
+            `).join('')}
+          </div>
+          <div style="text-align:right;flex-shrink:0;">
+            <p style="font-size:0.7rem;font-weight:700;color:var(--text-muted);">By ${p.author_name||'Admin'}</p>
+            <p style="font-size:0.68rem;color:#9CA3AF;margin-top:2px;">${fmtDateTime(p.created_at)}</p>
+            ${(p.target_blocks||[]).map(b=>`<span class="badge badge--blue" style="margin-top:4px;display:inline-block;">${HOSTEL_NAME(b)}</span>`).join('')}
+          </div>
+        </div>
+      </div>
+    `).join('');
+    document.querySelectorAll('#dash-notices').forEach(el=>el.textContent=posts.length);
+  } catch(err){ container.innerHTML=`<p class="text-muted">Could not load notices: ${err.message}</p>`; }
+}
+
+function initMenu(){
+  const days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+  const today = days[new Date().getDay()===0?6:new Date().getDay()-1];
+  document.querySelectorAll('#menu-day-tabs .tab').forEach(t=>{
+    t.classList.toggle('active',t.dataset.day===today);
+    t.addEventListener('click',()=>{
+      document.querySelectorAll('#menu-day-tabs .tab').forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      loadMenu(t.dataset.day);
+    });
+  });
+  loadMenu(today);
+  document.getElementById('save-menu-btn')?.addEventListener('click', saveMenu);
+}
+
+async function loadMenu(day){
+  const container = document.getElementById('menu-content');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const menu = await Api.getMenu(day);
+    const meals=['breakfast','lunch','snacks','dinner'];
+    const icons={breakfast:'☕',lunch:'🍛',snacks:'🍪',dinner:'🌙'};
+    container.innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">${meals.map(m=>`
+      <div style="padding:14px;border-radius:14px;background:var(--surface-2);border:1px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+          <span>${icons[m]}</span>
+          <span style="font-size:0.78rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:#3B82F6;">${m}</span>
+        </div>
+        <p style="font-size:0.83rem;color:var(--text-body);line-height:1.6;">${(menu?.[m]||[]).join(' · ')||'—'}</p>
+      </div>
+    `).join('')}</div>`;
+  } catch{ container.innerHTML='<p class="text-muted">Menu not available.</p>'; }
+}
+
+async function saveMenu(){
+  const day=document.getElementById('edit-day').value;
+  const meal=document.getElementById('edit-meal').value;
+  const items=document.getElementById('edit-items').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const btn=document.getElementById('save-menu-btn');
+  setLoading(btn,true);
+  try {
+    await Api.updateMenu(day,meal,items);
+    showMsg(document.getElementById('menu-edit-message'),`${meal} on ${day} updated!`,true);
+    loadMenu(day);
+  } catch(err){ showMsg(document.getElementById('menu-edit-message'),err.message,false); }
+  finally { setLoading(btn,false,'💾 Save Menu'); }
+}
+
+async function loadComplaints(){
+  try {
+    const complaints = await Api.getComplaints();
+    renderComplaintChart(complaints);
+    renderHomeComplaints(complaints.slice(0,3));
+  } catch{}
+}
+
+async function loadManageComplaints(){
+  const container = document.getElementById('manage-complaints-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const complaints = await Api.getComplaints();
+    const filter = document.querySelector('#comp-filter-tabs .tab.active')?.dataset.filter||'all';
+    const filtered = filter==='all' ? complaints : complaints.filter(c=>c.status===filter);
+    if(!filtered.length){ container.innerHTML='<p class="text-muted">No complaints found.</p>'; return; }
+    container.innerHTML = filtered.map(c=>`
+      <div class="clay clay--sm clay--static" style="padding:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;">
+        <div style="flex:1;">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-weight:700;font-size:0.83rem;">${c.category} — ${c.location}</span>
+            ${getStatusBadge(c.status)}
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:4px;">${c.description}</p>
+          <p style="font-size:0.7rem;color:#9CA3AF;">By ${c.student_name||'Student'} · ${fmtDate(c.created_at)}</p>
+        </div>
+        <div style="display:flex;gap:6px;flex-shrink:0;">
+          ${c.status!=='Resolved'?`<button onclick="updateComplaint('${c.id}','In Progress')" class="btn btn--ghost btn--sm">In Progress</button><button onclick="updateComplaint('${c.id}','Resolved')" class="btn btn--success btn--sm">Resolve</button>`:''}
+        </div>
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function updateComplaint(id, status){
+  try { await Api.updateComplaint(id,status); loadManageComplaints(); } catch(err){ alert(err.message); }
+}
+
+async function loadGatepasses(manage=false){
+  if(manage){
+    const container=document.getElementById('gatepass-manage-list');
+    if(!container) return;
+    container.innerHTML='<p class="text-muted">Loading…</p>';
+    try {
+      const hostel=document.getElementById('gp-manage-hostel-filter')?.value||'';
+      const status=document.getElementById('gp-manage-status-filter')?.value||'';
+      const gps = await Api.getGatepasses(hostel,status);
+      if(!gps.length){ container.innerHTML='<p class="text-muted">No applications found.</p>'; return; }
+      container.innerHTML = gps.map(g=>`
+        <div class="clay clay--sm clay--static" style="padding:14px;">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+            <div>
+              <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+                <span style="font-weight:700;font-size:0.83rem;">${g.student_name||'Student'}</span>
+                ${getStatusBadge(g.status)}
+              </div>
+              <p style="font-size:0.78rem;color:var(--text-muted);">To: ${g.destination} · ${g.purpose}</p>
+              <p style="font-size:0.72rem;color:#9CA3AF;margin-top:2px;">${fmtDateTime(g.departure_time)} → ${fmtDateTime(g.return_time)}</p>
+              <p style="font-size:0.72rem;color:#9CA3AF;">Hostel: ${HOSTEL_NAME(g.hostel)} · Emergency: ${g.emergency_contact}</p>
+            </div>
+            ${g.status==='pending'?`<div style="display:flex;gap:6px;">
+              <button onclick="updateGatepass('${g.id}','approved')" class="btn btn--success btn--sm">Approve</button>
+              <button onclick="updateGatepass('${g.id}','rejected')" class="btn btn--danger btn--sm">Reject</button>
+            </div>`:''}
+          </div>
+        </div>
+      `).join('');
+    } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+  } else {
+    const container=document.getElementById('gatepass-history-list');
+    if(!container) return;
+    container.innerHTML='<p class="text-muted">Loading…</p>';
+    try {
+      const gps = await Api.getGatepasses();
+      if(!gps.length){ container.innerHTML='<p class="text-muted">No gatepass applications yet.</p>'; return; }
+      container.innerHTML = gps.map(g=>`
+        <div class="clay clay--sm clay--static" style="padding:14px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+              <span style="font-weight:700;font-size:0.83rem;">${g.destination}</span>
+              ${getStatusBadge(g.status)}
+            </div>
+            <p style="font-size:0.78rem;color:var(--text-muted);">${g.purpose}</p>
+            <p style="font-size:0.72rem;color:#9CA3AF;">${fmtDateTime(g.departure_time)} → ${fmtDateTime(g.return_time)}</p>
+            ${g.rejection_reason?`<p style="font-size:0.72rem;color:#DC2626;margin-top:2px;">Reason: ${g.rejection_reason}</p>`:''}
+          </div>
+          <p style="font-size:0.7rem;color:#9CA3AF;">${fmtDate(g.created_at)}</p>
+        </div>
+      `).join('');
+    } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+  }
+}
+async function updateGatepass(id, status){
+  try { await Api.updateGatepass(id,status,''); loadGatepasses(true); } catch(err){ alert(err.message); }
+}
+
+async function loadLeave(){ loadLeaveHistory(); }
+async function loadLeaveHistory(){
+  const container=document.getElementById('leave-history-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const leaves=await Api.getLeaveRequests();
+    if(!leaves.length){ container.innerHTML='<p class="text-muted">No leave requests yet.</p>'; return; }
+    container.innerHTML=leaves.map(l=>`
+      <div class="clay clay--sm clay--static" style="padding:14px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-weight:700;font-size:0.83rem;">${l.leave_type||'Leave'}</span>
+            ${getStatusBadge(l.status)}
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-muted);">${l.reason}</p>
+          <p style="font-size:0.72rem;color:#9CA3AF;">${fmtDate(l.from_date)} → ${fmtDate(l.to_date)}</p>
+          ${l.notes?`<p style="font-size:0.72rem;color:#3B82F6;margin-top:2px;">Note: ${l.notes}</p>`:''}
+        </div>
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function loadLeaveManage(){
+  const container=document.getElementById('leave-manage-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const hostel=document.getElementById('lm-hostel-filter')?.value||'';
+    const status=document.getElementById('lm-status-filter')?.value||'';
+    const leaves=await Api.getLeaveRequests(hostel,status);
+    if(!leaves.length){ container.innerHTML='<p class="text-muted">No leave requests found.</p>'; return; }
+    container.innerHTML=leaves.map(l=>`
+      <div class="clay clay--sm clay--static" style="padding:14px;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+          <div>
+            <div style="display:flex;gap:6px;align-items:center;margin-bottom:4px;">
+              <span style="font-weight:700;font-size:0.83rem;">${l.student_name||'Student'}</span>
+              <span class="badge badge--gray">${l.leave_type}</span>
+              ${getStatusBadge(l.status)}
+            </div>
+            <p style="font-size:0.78rem;color:var(--text-muted);">${l.reason}</p>
+            <p style="font-size:0.72rem;color:#9CA3AF;">${fmtDate(l.from_date)} → ${fmtDate(l.to_date)} · ${HOSTEL_NAME(l.hostel)}</p>
+          </div>
+          ${l.status==='pending'?`<div style="display:flex;gap:6px;">
+            <button onclick="updateLeave('${l.id}','approved')" class="btn btn--success btn--sm">Approve</button>
+            <button onclick="updateLeave('${l.id}','rejected')" class="btn btn--danger btn--sm">Reject</button>
+          </div>`:''}
+        </div>
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function updateLeave(id,status){ try { await Api.updateLeave(id,status,''); loadLeaveManage(); } catch(err){ alert(err.message); } }
+
+async function loadVisitors(){
+  const container=document.getElementById('visitor-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const hostel=document.getElementById('visitor-hostel-filter')?.value||'';
+    const visitors=await Api.getVisitors(hostel);
+    if(!visitors.length){ container.innerHTML='<p class="text-muted">No active visitors.</p>'; return; }
+    container.innerHTML=visitors.map(v=>`
+      <div style="padding:10px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:8px;">
+        <div>
+          <p style="font-weight:700;font-size:0.8rem;">${v.visitor_name} <span style="color:var(--text-muted);font-weight:400;">(${v.relation})</span></p>
+          <p style="font-size:0.75rem;color:var(--text-muted);">For: ${v.student_name||'Student'} · ${HOSTEL_NAME(v.hostel)}</p>
+          <p style="font-size:0.7rem;color:#9CA3AF;">In: ${fmtDateTime(v.entry_time)} ${v.exit_time?'· Out: '+fmtDateTime(v.exit_time):''}</p>
+        </div>
+        ${!v.exit_time?`<button onclick="exitVisitor('${v.id}')" class="btn btn--ghost btn--sm">Log Exit</button>`:'<span class="badge badge--gray">Left</span>'}
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function exitVisitor(id){ try { await Api.exitVisitor(id); loadVisitors(); } catch(err){ alert(err.message); } }
+
+async function loadFines(){
+  const container=document.getElementById('fines-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading fines…</p>';
+  try {
+    const [fines, summary] = await Promise.all([Api.getFines(), Api.getMyFineSummary()]);
+    const totalEl=document.getElementById('fines-total-unpaid');
+    if(totalEl) totalEl.textContent=`₹${(summary.total_unpaid||0).toFixed(2)}`;
+    document.querySelectorAll('#dash-fines').forEach(el=>el.textContent=`₹${(summary.total_unpaid||0).toFixed(0)}`);
+    if(!fines.length){ container.innerHTML='<p class="text-muted">No fines on record. 🎉</p>'; return; }
+    const filter=document.querySelector('#fines-filter .tab.active')?.dataset.filter||'all';
+    const filtered=filter==='all'?fines:fines.filter(f=>f.status===filter);
+    container.innerHTML=filtered.map(f=>`
+      <div class="clay clay--sm clay--static" style="padding:14px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-weight:700;font-size:0.83rem;">${f.fine_type||'Fine'} #${f.id}</span>
+            ${getStatusBadge(f.status)}
+          </div>
+          <p style="font-size:0.83rem;font-weight:800;color:#D97706;margin-bottom:4px;">₹${parseFloat(f.amount).toFixed(2)}</p>
+          <p style="font-size:0.78rem;color:var(--text-muted);">${f.reason}</p>
+          <p style="font-size:0.7rem;color:#9CA3AF;">Issued: ${fmtDate(f.created_at)} ${f.due_date?'· Due: '+fmtDate(f.due_date):''}</p>
+        </div>
+        ${f.status==='unpaid'?`<button onclick="openPaymentModal('${f.id}','${f.amount}')" class="btn btn--primary btn--sm">Pay Now</button>`:''}
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+
+async function loadManagement(){
+  try {
+    const fines=await Api.getFines();
+    const items=await Api.getItems();
+    document.getElementById('stat-unpaid').textContent=fines.filter(f=>f.status==='unpaid').length;
+    document.getElementById('stat-paid').textContent=fines.filter(f=>f.status==='paid').length;
+    document.getElementById('stat-items').textContent=items.filter(i=>i.status==='seized').length;
+    const total=fines.filter(f=>f.status==='unpaid').reduce((s,f)=>s+parseFloat(f.amount||0),0);
+    document.getElementById('stat-total').textContent=`₹${total.toFixed(0)}`;
+  } catch{}
+}
+async function loadAllFines(){
+  const container=document.getElementById('all-fines-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const filter=document.getElementById('admin-fines-filter')?.value||'';
+    const fines=await Api.getFines(filter||null);
+    if(!fines.length){ container.innerHTML='<p class="text-muted">No fines found.</p>'; return; }
+    container.innerHTML=fines.map(f=>`
+      <div class="clay clay--sm clay--static" style="padding:14px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-weight:700;font-size:0.83rem;">${f.student_name||'Student'} — ${f.fine_type}</span>
+            ${getStatusBadge(f.status)}
+          </div>
+          <p style="font-size:0.83rem;font-weight:800;color:#D97706;">₹${parseFloat(f.amount).toFixed(2)}</p>
+          <p style="font-size:0.78rem;color:var(--text-muted);">${f.reason}</p>
+        </div>
+        <div style="display:flex;gap:6px;">
+          ${f.status==='unpaid'?`<button onclick="markPaid('${f.id}')" class="btn btn--success btn--sm">Mark Paid</button><button onclick="waiveFine('${f.id}')" class="btn btn--ghost btn--sm">Waive</button>`:''}
+        </div>
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function markPaid(id){ try { await Api.markFinePaidCash(id,'cash-'+Date.now(),''); loadAllFines(); } catch(err){ alert(err.message); } }
+async function waiveFine(id){ try { await Api.waiveFine(id,'Waived by admin'); loadAllFines(); } catch(err){ alert(err.message); } }
+
+async function loadAllItems(){
+  const container=document.getElementById('all-items-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const filter=document.getElementById('admin-items-filter')?.value||'';
+    const items=await Api.getItems(filter||null);
+    if(!items.length){ container.innerHTML='<p class="text-muted">No items logged.</p>'; return; }
+    container.innerHTML=items.map(i=>`
+      <div class="clay clay--sm clay--static" style="padding:14px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px;">
+            <span style="font-weight:700;font-size:0.83rem;">${i.item_name} (×${i.quantity})</span>
+            ${getStatusBadge(i.status)}
+          </div>
+          <p style="font-size:0.78rem;color:var(--text-muted);">Room: ${i.room_number} · Student: ${i.student_name||'—'}</p>
+          ${i.description?`<p style="font-size:0.75rem;color:#9CA3AF;">${i.description}</p>`:''}
+          <p style="font-size:0.7rem;color:#9CA3AF;">${fmtDate(i.created_at)}</p>
+        </div>
+        <div style="display:flex;gap:6px;">
+          ${i.status==='seized'?`<button onclick="updateItemStatus('${i.id}','returned')" class="btn btn--success btn--sm">Returned</button><button onclick="updateItemStatus('${i.id}','disposed')" class="btn btn--danger btn--sm">Disposed</button>`:''}
+        </div>
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function updateItemStatus(id,status){ try { await Api.updateItem(id,status,''); loadAllItems(); } catch(err){ alert(err.message); } }
+
+async function loadRooms(){
+  const container=document.getElementById('room-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const hostel=document.getElementById('room-hostel-filter')?.value||'';
+    const rooms=await Api.getRooms(hostel||null);
+    if(!rooms.length){ container.innerHTML='<p class="text-muted">No room allocations yet.</p>'; return; }
+    container.innerHTML=rooms.map(r=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:10px;border-radius:10px;background:var(--surface-2);border:1px solid var(--border);">
+        <div>
+          <p style="font-weight:700;font-size:0.82rem;">${r.student_name||'Student'}</p>
+          <p style="font-size:0.75rem;color:var(--text-muted);">${HOSTEL_NAME(r.hostel)} · Room ${r.room_number}${r.bed_number?' Bed '+r.bed_number:''}</p>
+          ${r.valid_until?`<p style="font-size:0.7rem;color:#9CA3AF;">Valid till ${fmtDate(r.valid_until)}</p>`:''}
+        </div>
+        <button onclick="deallocateRoom('${r.id}')" class="btn btn--danger btn--sm">Remove</button>
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function deallocateRoom(id){ if(!confirm('Remove this allocation?')) return; try { await Api.deallocateRoom(id); loadRooms(); } catch(err){ alert(err.message); } }
+
+let allUsersCache=[];
+async function loadAdmin(){
+  await Promise.all([loadPendingUsers(), loadAllUsers()]);
+}
+async function loadPendingUsers(){
+  const container=document.getElementById('pending-users-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    const users=await Api.getPendingUsers();
+    const badge=document.getElementById('pending-count'); if(badge) badge.textContent=users.length;
+    if(!users.length){ container.innerHTML='<p class="text-muted">No pending approvals. ✓</p>'; return; }
+    container.innerHTML=users.map(u=>`
+      <div class="clay clay--sm clay--static" style="padding:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+        <div>
+          <p style="font-weight:700;font-size:0.85rem;">${u.first_name} ${u.last_name}</p>
+          <p style="font-size:0.78rem;color:var(--text-muted);">${u.email}</p>
+          <div style="display:flex;gap:4px;margin-top:4px;">${getRoleBadge(u.role)}<span class="badge badge--gray">${HOSTEL_NAME(u.hostel)}</span></div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <button onclick="approveUser('${u.id}')" class="btn btn--success btn--sm">Approve</button>
+          <button onclick="rejectUser('${u.id}')" class="btn btn--danger btn--sm">Reject</button>
+        </div>
+      </div>
+    `).join('');
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+async function loadAllUsers(){
+  const container=document.getElementById('all-users-list');
+  if(!container) return;
+  container.innerHTML='<p class="text-muted">Loading…</p>';
+  try {
+    allUsersCache=await Api.getAllUsers();
+    filterUsers();
+  } catch(err){ container.innerHTML=`<p class="text-muted">Error: ${err.message}</p>`; }
+}
+function filterUsers(){
+  const container=document.getElementById('all-users-list');
+  if(!container) return;
+  const q=(document.getElementById('admin-user-search')?.value||'').toLowerCase();
+  const role=document.getElementById('admin-role-filter')?.value||'';
+  let users=allUsersCache;
+  if(q) users=users.filter(u=>`${u.first_name} ${u.last_name} ${u.email}`.toLowerCase().includes(q));
+  if(role) users=users.filter(u=>u.role===role);
+  if(!users.length){ container.innerHTML='<p class="text-muted">No users found.</p>'; return; }
+  container.innerHTML=users.map(u=>`
+    <div class="clay clay--sm clay--static" style="padding:12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#3B82F6,#4F46E5);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:0.8rem;flex-shrink:0;">
+          ${(u.first_name?.[0]||'')+(u.last_name?.[0]||'')||'U'}
+        </div>
+        <div>
+          <p style="font-weight:700;font-size:0.83rem;">${u.first_name} ${u.last_name}</p>
+          <p style="font-size:0.75rem;color:var(--text-muted);">${u.email} · ${HOSTEL_NAME(u.hostel)}</p>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        ${getRoleBadge(u.role)}
+        <button onclick="deleteUserAdmin('${u.id}')" class="btn btn--danger btn--sm">Delete</button>
+      </div>
+    </div>
+  `).join('');
+}
+async function approveUser(id){ try { await Api.approveUser(id); loadAdmin(); } catch(err){ alert(err.message); } }
+async function rejectUser(id){ if(!confirm('Reject & delete this user?')) return; try { await Api.rejectUser(id); loadAdmin(); } catch(err){ alert(err.message); } }
+async function deleteUserAdmin(id){ if(!confirm('Delete this user permanently?')) return; try { await Api.deleteUser(id); loadAllUsers(); } catch(err){ alert(err.message); } }
+</script>
+</body>
+</html>
