@@ -2,7 +2,7 @@
 
 <img src="https://img.shields.io/badge/RGIPT-HostelHub-3B82F6?style=for-the-badge&labelColor=0d1117" alt="HostelHub"/>
 
-# 🏛 HostelHub
+# 🏛 HostelHub 
 
 **Full-stack hostel management system for Rajiv Gandhi Institute of Petroleum Technology, Jais, Amethi.**
 
